@@ -6,10 +6,11 @@ import { Canvas } from '@react-three/fiber'
 import { Physics, useBox, usePlane } from '@react-three/cannon'
 import { OrbitControls, Text, Html } from '@react-three/drei'
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
+import { Mesh } from 'three'
 
 // Physics Box Component
 function PhysicsBox({ position, color, size = 1 }: { position: [number, number, number], color: string, size?: number }) {
-  const [ref] = useBox(() => ({
+  const [ref] = useBox<Mesh>(() => ({
     mass: 1,
     position,
     args: [size, size, size],
@@ -25,7 +26,7 @@ function PhysicsBox({ position, color, size = 1 }: { position: [number, number, 
 
 // Ground Plane
 function Ground() {
-  const [ref] = usePlane(() => ({
+  const [ref] = usePlane<Mesh>(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, -5, 0],
     type: 'Static',
