@@ -46,9 +46,9 @@ const Navbar = () => {
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold gradient-text"
+            className="text-2xl font-bold gradient-text min-w-[32px] h-8"
           >
-            Utkarsh
+            {/* Logo removed as requested */}
           </motion.div>
 
           {/* Desktop Navigation */}
