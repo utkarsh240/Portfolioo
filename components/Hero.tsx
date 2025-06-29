@@ -148,10 +148,9 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0"
           >
-            Strong skills in DSA, Full-Stack Development, and a solid foundation in finance. 
-            Aiming to solve real-world problems by combining technical expertise, business insight, and a growing interest in GenAI.
+            I build modern web applications and love solving real-world problems with code.
           </motion.p>
 
           {/* CTA Buttons */}

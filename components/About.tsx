@@ -46,12 +46,6 @@ const About = () => {
       title: '450+ DSA Problems',
       description: 'Solved 450+ Data Structures and Algorithms problems on multiple coding platforms',
       color: 'text-green-400'
-    },
-    {
-      icon: Target,
-      title: 'Full Stack + Finance',
-      description: 'Strong skills in DSA, Full-Stack Development, and solid foundation in finance',
-      color: 'text-purple-400'
     }
   ]
 
@@ -111,10 +105,7 @@ const About = () => {
             
             <motion.div variants={itemVariants} className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                I'm a Computer Science student with strong skills in <span className="text-primary-400 font-semibold">DSA</span>,
-                <span className="text-primary-400 font-semibold"> Full-Stack Development</span>, and a solid foundation in
-                <span className="text-primary-400 font-semibold"> finance</span>. I aim to solve real-world problems by combining
-                technical expertise, business insight, and a growing interest in <span className="text-primary-400 font-semibold">GenAI</span>.
+                I'm a Computer Science student passionate about building impactful software and exploring new technologies.
               </p>
               <p>
                 <span className="text-primary-400 font-semibold">Education:</span> Bachelor of Technology in Computer Science & Engineering, KIIT University
