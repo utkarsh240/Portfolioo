@@ -12,8 +12,8 @@ const experiences = [
     period: 'May 2024 - Present',
     description: 'Worked on scalable web applications using React.js, Tailwind CSS, TypeScript, Docker, and AWS. Collaborated with cross-functional teams to deliver robust solutions.',
     icon: Briefcase,
-    color: 'text-blue-400',
-    bgColor: 'bg-blue-400/10',
+    color: 'text-primary-500',
+    bgColor: 'bg-primary-500/10',
   },
   {
     company: 'WebXstreet',
@@ -21,8 +21,8 @@ const experiences = [
     period: '2022 - Present',
     description: 'Co-founded a web solutions startup, leading product development, client acquisition, and project delivery. Specialized in modern web technologies and business growth.',
     icon: Users,
-    color: 'text-purple-400',
-    bgColor: 'bg-purple-400/10',
+    color: 'text-electric-500',
+    bgColor: 'bg-electric-500/10',
   },
 ]
 
@@ -70,30 +70,30 @@ const Experience = () => {
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="text-xl text-gray-400 max-w-3xl mx-auto"
+            className="text-xl text-text-secondary max-w-3xl mx-auto"
           >
             My journey through impactful roles and entrepreneurial ventures.
           </motion.p>
         </motion.div>
         <div className="grid md:grid-cols-2 gap-8">
-          {experiences.map((exp, idx) => (
+          {experiences.map((exp) => (
             <motion.div
               key={exp.company}
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="glass p-6 rounded-xl hover:border-primary-500 transition-all duration-300"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="glass p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover-3d"
             >
               <div className="flex items-center mb-4">
                 <div className={`p-3 rounded-lg ${exp.bgColor} mr-4`}>
                   <exp.icon className={`w-6 h-6 ${exp.color}`} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">{exp.company}</h3>
-                  <p className="text-primary-400 font-medium">{exp.role}</p>
-                  <p className="text-gray-400 text-sm">{exp.period}</p>
+                  <h3 className="text-xl font-bold text-text-primary">{exp.company}</h3>
+                  <p className="text-primary-500 font-semibold">{exp.role}</p>
+                  <p className="text-text-secondary text-sm">{exp.period}</p>
                 </div>
               </div>
-              <p className="text-gray-300 leading-relaxed">{exp.description}</p>
+              <p className="text-text-secondary leading-relaxed">{exp.description}</p>
             </motion.div>
           ))}
         </div>

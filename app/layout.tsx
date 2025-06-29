@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { CursorProvider } from '@/context/CursorContext'
+import CustomCursor from '@/components/CustomCursor'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,7 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.className} bg-dark-900 text-white antialiased`}>
-        {children}
+        <CursorProvider>
+          <CustomCursor />
+          {children}
+        </CursorProvider>
       </body>
     </html>
   )

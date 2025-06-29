@@ -2,19 +2,28 @@
 
 import { Suspense, useRef, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Text, Html } from '@react-three/drei'
+import { Html } from '@react-three/drei'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { optimizeThreeJS, throttle } from '@/utils/performance'
+import { useCursorContext } from '@/context/CursorContext'
 
 // Register ScrollTrigger
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
+interface FloatingCardProps {
+  position: [number, number, number]
+  rotation: [number, number, number]
+  children: React.ReactNode
+  color: string
+  enableAnimations: boolean
+}
+
 // Floating Card Component
-function FloatingCard({ position, rotation, children, color, enableAnimations }: any) {
-  const meshRef = useRef<any>()
+function FloatingCard({ position, rotation, children, color, enableAnimations }: FloatingCardProps) {
+  const meshRef = useRef<THREE.Mesh>(null)
   const initialY = position[1]
 
   useFrame((state) => {
@@ -38,9 +47,16 @@ function FloatingCard({ position, rotation, children, color, enableAnimations }:
   )
 }
 
+interface RotatingIconProps {
+  position: [number, number, number]
+  icon: string
+  color: string
+  enableAnimations: boolean
+}
+
 // Rotating Icon Component
-function RotatingIcon({ position, icon, color, enableAnimations }: any) {
-  const meshRef = useRef<any>()
+function RotatingIcon({ position, icon, color, enableAnimations }: RotatingIconProps) {
+  const meshRef = useRef<THREE.Mesh>(null)
 
   useFrame((state) => {
     if (meshRef.current && enableAnimations) {
@@ -97,18 +113,18 @@ function Scene() {
   const [performance] = useState(() => optimizeThreeJS())
 
   const floatingElements = [
-    { position: [3, 2, -2], rotation: [0, 0.5, 0], color: '#0ea5e9', text: 'React.js' },
-    { position: [-3, 3, 1], rotation: [0, -0.3, 0], color: '#3b82f6', text: 'Next.js' },
-    { position: [2, 4, -1], rotation: [0, 0.8, 0], color: '#8b5cf6', text: 'TypeScript' },
-    { position: [-2, 1, 2], rotation: [0, -0.6, 0], color: '#06b6d4', text: 'Python' },
-    { position: [4, 3, -3], rotation: [0, 0.2, 0], color: '#10b981', text: 'Java' },
+    { position: [3, 2, -2] as [number, number, number], rotation: [0, 0.5, 0] as [number, number, number], color: '#0ea5e9', text: 'React.js' },
+    { position: [-3, 3, 1] as [number, number, number], rotation: [0, -0.3, 0] as [number, number, number], color: '#3b82f6', text: 'Next.js' },
+    { position: [2, 4, -1] as [number, number, number], rotation: [0, 0.8, 0] as [number, number, number], color: '#8b5cf6', text: 'TypeScript' },
+    { position: [-2, 1, 2] as [number, number, number], rotation: [0, -0.6, 0] as [number, number, number], color: '#06b6d4', text: 'Python' },
+    { position: [4, 3, -3] as [number, number, number], rotation: [0, 0.2, 0] as [number, number, number], color: '#10b981', text: 'Java' },
   ]
 
   const rotatingIcons = [
-    { position: [1, 5, 0], icon: '⚛️', color: '#0ea5e9' },
-    { position: [-1, 6, 1], icon: '🔷', color: '#3b82f6' },
-    { position: [2, 4, -2], icon: '🔶', color: '#8b5cf6' },
-    { position: [-2, 3, 2], icon: '🐍', color: '#10b981' },
+    { position: [1, 5, 0] as [number, number, number], icon: '⚛️', color: '#0ea5e9' },
+    { position: [-1, 6, 1] as [number, number, number], icon: '🔷', color: '#3b82f6' },
+    { position: [2, 4, -2] as [number, number, number], icon: '🔶', color: '#8b5cf6' },
+    { position: [-2, 3, 2] as [number, number, number], icon: '🐍', color: '#10b981' },
   ]
 
   return (
@@ -146,6 +162,34 @@ function Scene() {
 
 const AnimatedBackground = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const bgRef = useRef<HTMLDivElement>(null)
+  const cursor = useCursorContext() || { x: 0.5, y: 0.5 }
+  const { x, y } = cursor
+
+  useEffect(() => {
+    if (!isVisible || !bgRef.current) return
+    // Multi-color interpolation: center, edge, and corner
+    const colors = [
+      { r: 26, g: 26, b: 26 },      // #1A1A1A (base)
+      { r: 48, g: 43, b: 99 },      // #302B63 (secondary)
+      { r: 69, g: 60, b: 103 },     // #453C67 (center accent)
+      { r: 0, g: 240, b: 255 },     // #00F0FF (cyan accent)
+    ]
+    // Interpolate between center and corners
+    const dx = x - 0.5
+    const dy = y - 0.5
+    const dist = Math.sqrt(dx * dx + dy * dy) * 2
+    // Blend: center (closer to 0) is accent, edge/corner is base/secondary
+    const r = Math.round(colors[2].r * (1 - dist) + colors[1].r * dist)
+    const g = Math.round(colors[2].g * (1 - dist) + colors[1].g * dist)
+    const b = Math.round(colors[2].b * (1 - dist) + colors[1].b * dist)
+    const color = `rgb(${r},${g},${b})`
+    gsap.to(bgRef.current, {
+      backgroundColor: color,
+      duration: 0.7,
+      ease: 'power2.out',
+    })
+  }, [x, y, isVisible])
 
   useEffect(() => {
     // Lazy load the 3D background
@@ -154,12 +198,24 @@ const AnimatedBackground = () => {
   }, [])
 
   if (!isVisible) {
-    return <div className="fixed inset-0 z-0 pointer-events-none bg-dark-900" />
+    return <div ref={bgRef} className="fixed inset-0 z-0 pointer-events-none bg-[#1A1A1A]" />
   }
+
+  // Parallax SVG layer
+  const parallaxX = (x - 0.5) * 80
+  const parallaxY = (y - 0.5) * 80
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
-      <Suspense fallback={<div className="w-full h-full bg-dark-900" />}>
+      <div ref={bgRef} className="absolute inset-0 w-full h-full" style={{ zIndex: 0, pointerEvents: 'none' }} />
+      {/* Parallax SVG blob */}
+      <svg
+        width="400" height="400" viewBox="0 0 400 400"
+        style={{ position: 'absolute', left: `calc(50% - 200px + ${parallaxX}px)`, top: `calc(50% - 200px + ${parallaxY}px)`, zIndex: 1, opacity: 0.18, pointerEvents: 'none' }}
+      >
+        <ellipse cx="200" cy="200" rx="160" ry="120" fill="#00F0FF" />
+      </svg>
+      <Suspense fallback={<div className="w-full h-full bg-[#1A1A1A]" />}> 
         <Scene />
       </Suspense>
     </div>

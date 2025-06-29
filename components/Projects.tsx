@@ -1,70 +1,26 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { ExternalLink, Github, Play, Code, Database, Brain, TrendingUp } from 'lucide-react'
+import { useRef, useEffect } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { Github, Play, Brain, TrendingUp, LucideIcon } from 'lucide-react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-// Register ScrollTrigger
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
+import { useCursorEffects } from '@/hooks/useCursorEffects'
+import { useGSAPProximity } from '@/hooks/useGSAPProximity'
 
 const Projects = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
   const sectionRef = useRef<HTMLElement>(null)
   const projectsRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const { rawX, rawY } = useCursorEffects()
 
-  useEffect(() => {
-    if (sectionRef.current) {
-      // Animate section on scroll
-      gsap.fromTo(
-        sectionRef.current,
-        { opacity: 0, y: 100 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      )
-    }
-
-    if (projectsRef.current) {
-      // Stagger animation for projects
-      const projects = projectsRef.current.querySelectorAll('[data-stagger]')
-      gsap.fromTo(
-        projects,
-        { opacity: 0, y: 80, scale: 0.9 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: projectsRef.current,
-            start: 'top 85%',
-            end: 'bottom 15%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      )
-    }
-  }, [])
+  // Animate heading on cursor proximity
+  useGSAPProximity(headingRef, (proximity: number) => ({
+    scale: 1 + proximity * 0.03,
+    color: proximity > 0.7 ? '#8BC34A' : '#F0F0F0',
+    textShadow: proximity > 0.7 ? '0 0 18px rgba(139, 195, 74, 0.6)' : 'none',
+  }))
 
   const projects = [
     {
@@ -74,8 +30,8 @@ const Projects = () => {
       technologies: ['React.js', 'Tailwind CSS', 'Vite', 'TMDB API', 'Appwrite'],
       category: 'Web Application',
       icon: Play,
-      color: 'text-blue-400',
-      bgColor: 'bg-blue-400/10',
+      color: 'text-primary-500',
+      bgColor: 'bg-primary-500/10',
       github: 'https://github.com/utkarsh240/FilmFinder',
       live: '#',
       features: [
@@ -93,8 +49,8 @@ const Projects = () => {
       technologies: ['Python', 'Streamlit', 'LangChain', 'OpenAI GPT-4', 'Qdrant', 'Docker'],
       category: 'AI/ML Application',
       icon: Brain,
-      color: 'text-purple-400',
-      bgColor: 'bg-purple-400/10',
+      color: 'text-electric-500',
+      bgColor: 'bg-electric-500/10',
       github: 'https://github.com/utkarsh240/Pdf_analysis',
       live: '#',
       features: [
@@ -112,8 +68,8 @@ const Projects = () => {
       technologies: ['Python', 'AlgoTest', 'Quantiply', 'Historical Data Analysis', 'Backtesting'],
       category: 'Financial Technology',
       icon: TrendingUp,
-      color: 'text-green-400',
-      bgColor: 'bg-green-400/10',
+      color: 'text-primary-500',
+      bgColor: 'bg-primary-500/10',
       github: '#',
       live: '#',
       features: [
@@ -152,94 +108,195 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <motion.h2
+            ref={headingRef}
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold mb-4"
+            style={{ transition: 'color 0.4s, text-shadow 0.4s' }}
           >
             Featured <span className="gradient-text">Projects</span>
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="text-xl text-gray-400 max-w-3xl mx-auto"
+            className="text-xl text-text-secondary max-w-3xl mx-auto"
           >
             A showcase of my recent work, demonstrating my skills in full-stack development, AI integration, and modern web technologies.
           </motion.p>
         </motion.div>
 
         <div ref={projectsRef} className="grid lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              data-stagger
-              variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="glass rounded-xl overflow-hidden hover:border-primary-500 transition-all duration-300"
-            >
-              {/* Project Image */}
-              <div className="relative h-48 bg-gradient-to-br from-primary-500/20 to-purple-500/20 flex items-center justify-center">
-                <div className={`p-4 rounded-lg ${project.bgColor}`}>
-                  <project.icon className={`w-12 h-12 ${project.color}`} />
-                </div>
-                <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 bg-dark-800 text-primary-400 text-xs font-medium rounded-full">
-                    {project.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-dark-700 text-primary-400 text-xs font-medium rounded-full border border-primary-500/30"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Features */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-white mb-2">Key Features:</h4>
-                  <ul className="space-y-1">
-                    {project.features.slice(0, 3).map((feature, idx) => (
-                      <li key={idx} className="text-gray-400 text-sm flex items-center">
-                        <span className="w-1 h-1 bg-primary-400 rounded-full mr-2"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  {project.github !== '#' && (
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-medium transition-colors"
-                    >
-                      <Github size={16} />
-                      View Code
-                    </motion.a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
+          {projects.map((project) => (
+            <ProjectCard key={project.title} project={project} rawX={rawX} rawY={rawY} />
           ))}
         </div>
       </div>
     </section>
+  )
+}
+
+interface ProjectCardProps {
+  project: {
+    title: string
+    description: string
+    image: string
+    technologies: string[]
+    category: string
+    icon: LucideIcon
+    color: string
+    bgColor: string
+    github: string
+    live: string
+    features: string[]
+  }
+  rawX: number
+  rawY: number
+}
+
+const ProjectCard = ({ project, rawX, rawY }: ProjectCardProps) => {
+  const imgRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+  
+  useEffect(() => {
+    if (!imgRef.current) return
+    
+    const animateImage = () => {
+      const rect = imgRef.current!.getBoundingClientRect()
+      const cx = rect.left + rect.width / 2
+      const cy = rect.top + rect.height / 2
+      const dx = rawX - cx
+      const dy = rawY - cy
+      const dist = Math.sqrt(dx * dx + dy * dy)
+      const maxDist = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2) / 2
+      const proximity = 1 - Math.min(dist / maxDist, 1)
+      
+      gsap.to(imgRef.current, {
+        filter: `saturate(${1 + proximity * 0.3}) brightness(${1 + proximity * 0.1})`,
+        scale: 1 + proximity * 0.01,
+        boxShadow: proximity > 0.7 ? '0 4px 32px rgba(139, 195, 74, 0.3)' : 'none',
+        duration: 0.4,
+        ease: 'power2.out',
+      })
+    }
+    
+    const frameId = requestAnimationFrame(animateImage)
+    
+    return () => {
+      cancelAnimationFrame(frameId)
+    }
+  }, [rawX, rawY])
+
+  // 3D tilt effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+    
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    
+    const rotateX = (y - centerY) / 10
+    const rotateY = (centerX - x) / 10
+    
+    gsap.to(cardRef.current, {
+      rotateX: rotateX,
+      rotateY: rotateY,
+      duration: 0.3,
+      ease: 'power2.out',
+    })
+  }
+
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return
+    
+    gsap.to(cardRef.current, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.5,
+      ease: 'power2.out',
+    })
+  }
+  
+  return (
+    <motion.div
+      ref={cardRef}
+      data-stagger
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+      }}
+      whileHover={{ scale: 1.02, y: -5 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="glass rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 hover-3d"
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      {/* Project Image */}
+      <div
+        ref={imgRef}
+        className="relative h-48 bg-gradient-to-br from-primary-500/20 to-electric-500/20 flex items-center justify-center"
+        style={{ transition: 'filter 0.5s, box-shadow 0.5s' }}
+      >
+        <div className={`p-4 rounded-lg ${project.bgColor}`}>
+          <project.icon className={`w-12 h-12 ${project.color}`} />
+        </div>
+        <div className="absolute top-4 right-4">
+          <span className="px-3 py-1 bg-dark-800/90 backdrop-blur-sm text-primary-500 text-xs font-semibold rounded-full border border-primary-500/30">
+            {project.category}
+          </span>
+        </div>
+      </div>
+
+      {/* Project Content */}
+      <div className="p-6">
+        <h3 className="text-2xl font-bold text-text-primary mb-3">{project.title}</h3>
+        <p className="text-text-secondary mb-4 leading-relaxed">
+          {project.description}
+        </p>
+
+        {/* Technologies */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.technologies.map((tech) => (
+            <span
+              key={tech}
+              className="px-3 py-1 bg-dark-700 text-primary-500 text-xs font-semibold rounded-full border border-primary-500/30 hover:border-primary-500/60 transition-colors duration-300"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        {/* Features */}
+        <div className="mb-6">
+          <h4 className="text-sm font-semibold text-text-primary mb-2">Key Features:</h4>
+          <ul className="space-y-1">
+            {project.features.slice(0, 3).map((feature, idx) => (
+              <li key={idx} className="text-text-secondary text-sm flex items-center">
+                <span className="w-1 h-1 bg-primary-500 rounded-full mr-2"></span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-3">
+          {project.github !== '#' && (
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-semibold transition-all duration-300 hover:shadow-lg"
+            >
+              <Github size={16} />
+              View Code
+            </motion.a>
+          )}
+        </div>
+      </div>
+    </motion.div>
   )
 }
 

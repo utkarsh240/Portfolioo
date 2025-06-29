@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Code, Database, Zap, Globe } from 'lucide-react'
+import { Code, Database, Globe, Zap } from 'lucide-react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -94,29 +94,29 @@ const Skills = () => {
     {
       title: 'Programming Languages',
       icon: Code,
-      color: 'text-blue-400',
-      bgColor: 'bg-blue-400/10',
+      color: 'text-primary-500',
+      bgColor: 'bg-primary-500/10',
       skills: ['Java', 'JavaScript', 'TypeScript', 'Python']
     },
     {
       title: 'Databases',
       icon: Database,
-      color: 'text-green-400',
-      bgColor: 'bg-green-400/10',
+      color: 'text-electric-500',
+      bgColor: 'bg-electric-500/10',
       skills: ['MongoDB', 'SQL', 'Qdrant']
     },
     {
       title: 'Web Technologies',
       icon: Globe,
-      color: 'text-purple-400',
-      bgColor: 'bg-purple-400/10',
+      color: 'text-primary-500',
+      bgColor: 'bg-primary-500/10',
       skills: ['React.js', 'Next.js', 'Express.js', 'Tailwind CSS', 'Node.js', 'HTML/CSS']
     },
     {
       title: 'Tools/Platforms',
       icon: Zap,
-      color: 'text-yellow-400',
-      bgColor: 'bg-yellow-400/10',
+      color: 'text-electric-500',
+      bgColor: 'bg-electric-500/10',
       skills: ['Git', 'GitHub', 'MS Office', 'Postman', 'Docker', 'Vercel']
     }
   ]
@@ -154,34 +154,34 @@ const Skills = () => {
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="text-xl text-gray-400 max-w-3xl mx-auto"
+            className="text-xl text-text-secondary max-w-3xl mx-auto"
           >
             A comprehensive toolkit of technologies and frameworks I use to bring ideas to life.
           </motion.p>
         </motion.div>
 
         <div ref={categoriesRef} className="grid lg:grid-cols-2 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
+          {skillCategories.map((category) => (
             <motion.div
               key={category.title}
               data-stagger
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="glass p-6 rounded-xl hover:border-primary-500 transition-all duration-300"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="glass p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover-3d"
             >
               <div className="flex items-center mb-6">
                 <div className={`p-3 rounded-lg ${category.bgColor} mr-4`}>
                   <category.icon className={`w-6 h-6 ${category.color}`} />
                 </div>
-                <h3 className="text-xl font-bold text-white">{category.title}</h3>
+                <h3 className="text-xl font-bold text-text-primary">{category.title}</h3>
               </div>
 
               <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill, skillIndex) => (
+                {category.skills.map((skill) => (
                   <motion.span
                     key={skill}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className="px-4 py-2 bg-dark-700 text-gray-300 rounded-lg text-sm font-medium border border-dark-600 hover:border-primary-500 transition-all duration-300"
+                    className="px-4 py-2 bg-dark-700 text-text-secondary rounded-lg text-sm font-semibold border border-dark-600 hover:border-primary-500/60 transition-all duration-300 hover:shadow-lg"
                   >
                     {skill}
                   </motion.span>
@@ -201,7 +201,7 @@ const Skills = () => {
         >
           <motion.h3
             variants={itemVariants}
-            className="text-2xl font-bold text-white text-center mb-8"
+            className="text-2xl font-bold text-text-primary text-center mb-8"
           >
             Additional Technologies
           </motion.h3>
@@ -214,12 +214,12 @@ const Skills = () => {
               'Vite', 'Appwrite', 'Streamlit', 'LangChain', 'OpenAI', 'Docker',
               'AlgoTest', 'Quantiply', 'Historical Data', 'Backtesting', 'Vector DB',
               'API Integration', 'Responsive Design', 'Clean Code', 'UX Design'
-            ].map((tech, index) => (
+            ].map((tech) => (
               <motion.div
                 key={tech}
                 data-stagger
                 whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-3 bg-dark-700 text-gray-300 rounded-lg text-center text-sm font-medium border border-dark-600 hover:border-primary-500 transition-all duration-300"
+                className="px-4 py-3 bg-dark-700 text-text-secondary rounded-lg text-center text-sm font-semibold border border-dark-600 hover:border-primary-500/60 transition-all duration-300 hover:shadow-lg"
               >
                 {tech}
               </motion.div>
