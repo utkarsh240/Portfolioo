@@ -23,7 +23,7 @@ const About = () => {
 
     if (achievementsRef.current) {
       createStaggerAnimation(
-        achievementsRef.current.querySelectorAll('[data-stagger]'),
+        Array.from(achievementsRef.current.querySelectorAll('[data-stagger]')),
         {
           opacity: 1,
           y: 0,
