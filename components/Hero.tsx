@@ -177,9 +177,9 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-extrabold gsap-name tracking-widest"
+            className="text-5xl md:text-7xl font-extrabold gsap-name tracking-[0.3em]"
           >
-            Utkarsh Kumar Gupta
+            Utkarsh&nbsp;&nbsp;&nbsp;&nbsp;Kumar&nbsp;&nbsp;&nbsp;&nbsp;Gupta
           </motion.h1>
 
           {/* Title */}
