@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
@@ -241,192 +242,15 @@ const Contact = () => {
   }
 
   return (
-    <section ref={sectionRef} id="contact" className="py-20 bg-dark-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="text-center mb-16"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold mb-4"
-          >
-            Get In <span className="gradient-text">Touch</span>
-          </motion.h2>
-          <motion.p
-            variants={itemVariants}
-            className="text-xl text-text-secondary max-w-3xl mx-auto"
-          >
-            I&apos;m always open to discussing new opportunities, interesting projects, or just having a chat about technology.
-          </motion.p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <motion.div
-            ref={contactInfoRef}
-            variants={containerVariants}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            className="space-y-8"
-          >
-            <motion.h3
-              variants={itemVariants}
-              className="text-2xl font-bold text-text-primary mb-6"
-            >
-              Let&apos;s Connect
-            </motion.h3>
-
-            {/* Contact Info Cards */}
-            <div className="space-y-4">
-              {contactInfo.map((info) => (
-                <motion.a
-                  key={info.title}
-                  data-stagger
-                  href={info.link}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  className="flex items-center p-4 glass rounded-lg hover:border-primary-500/50 transition-all duration-300 hover-3d"
-                >
-                  <div className={`p-3 rounded-lg bg-dark-700 mr-4`}>
-                    <info.icon className={`w-6 h-6 ${info.color}`} />
-                  </div>
-                  <div>
-                    <h4 className="text-text-primary font-semibold">{info.title}</h4>
-                    <p className="text-text-secondary">{info.value}</p>
-                  </div>
-                </motion.a>
-              ))}
-            </div>
-
-            {/* Social Links */}
-            <motion.div variants={itemVariants} className="pt-8">
-              <h4 className="text-lg font-semibold text-text-primary mb-4">Follow Me</h4>
-              <div className="flex justify-center space-x-6">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    ref={el => { socialIconRefs.current[socialLinks.findIndex(l => l.name === link.name)] = el }}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={link.color + ' transition-colors duration-300'}
-                    style={{ fontSize: 24 }}
-                  >
-                    <link.icon size={24} />
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            ref={formRef}
-            variants={containerVariants}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            className="glass p-8 rounded-xl"
-          >
-            <motion.h3
-              variants={itemVariants}
-              className="text-2xl font-bold text-text-primary mb-6"
-            >
-              Send Message
-            </motion.h3>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <motion.div variants={itemVariants}>
-                <label htmlFor="name" className="block text-text-primary font-semibold mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-text-primary placeholder-text-secondary focus:outline-none focus:border-primary-500 transition-colors"
-                  placeholder="Your name"
-                />
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <label htmlFor="email" className="block text-text-primary font-semibold mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-text-primary placeholder-text-secondary focus:outline-none focus:border-primary-500 transition-colors"
-                  placeholder="your.email@example.com"
-                />
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <label htmlFor="subject" className="block text-text-primary font-semibold mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-text-primary placeholder-text-secondary focus:outline-none focus:border-primary-500 transition-colors"
-                  placeholder="What&apos;s this about?"
-                />
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <label htmlFor="message" className="block text-text-primary font-semibold mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-text-primary placeholder-text-secondary focus:outline-none focus:border-primary-500 transition-colors resize-none"
-                  placeholder="Tell me about your project or just say hello!"
-                />
-              </motion.div>
-
-              <motion.button
-                ref={sendBtnRef}
-                type="submit"
-                disabled={isSubmitting}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Sending...
-                  </span>
-                ) : (
-                  <span className="flex items-center justify-center">
-                    <Send size={18} className="mr-2" />
-                    Send Message
-                  </span>
-                )}
-              </motion.button>
-            </form>
-          </motion.div>
-        </div>
+    <section id="contact" className="py-20 px-4 bg-dark-900 flex justify-center">
+      <div className="max-w-xl w-full bg-dark-800 rounded-2xl shadow-lg p-8 flex flex-col gap-6">
+        <h2 className="text-3xl md:text-4xl font-bold font-heading text-text-primary mb-2">Contact</h2>
+        <form className="flex flex-col gap-4">
+          <input type="text" placeholder="Name" className="bg-dark-900 border border-dark-700 rounded-lg px-4 py-3 text-text-primary font-body focus:border-primary-500 focus:outline-none" />
+          <input type="email" placeholder="Email" className="bg-dark-900 border border-dark-700 rounded-lg px-4 py-3 text-text-primary font-body focus:border-primary-500 focus:outline-none" />
+          <textarea placeholder="Message" rows={4} className="bg-dark-900 border border-dark-700 rounded-lg px-4 py-3 text-text-primary font-body focus:border-primary-500 focus:outline-none" />
+          <button type="submit" className="btn-primary font-heading mt-2">Send Message</button>
+        </form>
       </div>
     </section>
   )

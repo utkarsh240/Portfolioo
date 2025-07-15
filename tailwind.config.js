@@ -101,8 +101,10 @@ module.exports = {
         },
       },
       fontFamily: {
+        'heading': ['Manrope', 'sans-serif'], // For headings
+        'body': ['Inter', 'sans-serif'],      // For body text
         'mono': ['JetBrains Mono', 'monospace'],
-        'sans': ['Inter', 'sans-serif'],
+        'sans': ['Inter', 'sans-serif'], // fallback for general sans
       },
       letterSpacing: {
         'wide': '0.05em',

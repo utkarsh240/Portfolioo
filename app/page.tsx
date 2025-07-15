@@ -6,11 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
+import Education from '@/components/Education'
 import Experience from '@/components/Experience'
-import Skills from '@/components/Skills'
 import Projects from '@/components/Projects'
+import Skills from '@/components/Skills'
 import Contact from '@/components/Contact'
-import AnimatedBackground from '@/components/AnimatedBackground'
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -42,20 +42,15 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-dark-900 relative">
-      {/* Animated 3D Background */}
-      <AnimatedBackground />
-      
-      {/* Content */}
-      <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact />
-      </div>
+    <main className="bg-dark-900 min-h-screen">
+      <Navbar />
+      <Hero />
+      <About />
+      <Education />
+      <Experience />
+      <Projects />
+      <Skills />
+      <Contact />
     </main>
   )
 } 

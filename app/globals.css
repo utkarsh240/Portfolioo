@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import '@fontsource/inter/index.css';
+@import '@fontsource/manrope/index.css';
 
 :root {
   /* GSAP-inspired color system */
@@ -18,6 +20,13 @@
   /* Alternative Electric Blue */
   --electric-blue: #00C2E0;
   --electric-blue-hover: #00acc1;
+
+  --gsap-green: #8BC34A;
+  --gsap-green-light: #9CCC65;
+  --gsap-green-dark: #558B2F;
+  --gsap-blue: #00C2E0;
+  --gsap-dark: #1A1A1A;
+  --gsap-offwhite: #F0F0F0;
 }
 
 * {
@@ -32,11 +41,16 @@ html {
 }
 
 body {
+  @apply font-body bg-dark-900 text-text-primary;
   color: var(--text-primary);
   background: var(--primary-bg);
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-heading;
 }
 
 /* Custom scrollbar */
