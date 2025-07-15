@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { Linkedin, Github, Twitter } from 'lucide-react'
 
 const FlipText = ({ text, className = "", delay = 0 }: { text: string, className?: string, delay?: number }) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -50,11 +51,39 @@ const Hero = () => {
           </span>
         </h1>
         <p className="text-lg md:text-2xl text-text-secondary font-body max-w-xl mx-auto">
-          Computer Science Student & Full Stack Developer. I build modern web applications and love solving real-world problems with code.
+          Computer Science Student & Full Stack Developer with knowledge of Gen AI. I build modern web applications and love solving real-world problems with code.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 pt-4">
           <a href="#projects" className="btn-primary font-heading">View Projects</a>
           <a href="#contact" className="btn-secondary font-heading">Get In Touch</a>
+        </div>
+        
+        {/* Social Links */}
+        <div className="flex items-center gap-6 pt-6">
+          <a 
+            href="https://linkedin.com/in/utkarsh-gupta-53647b217/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-full bg-dark-800 hover:bg-primary-500/20 transition-all duration-300 group"
+          >
+            <Linkedin className="w-6 h-6 text-text-secondary group-hover:text-primary-500 transition-colors duration-300" />
+          </a>
+          <a 
+            href="https://github.com/utkarsh240" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-full bg-dark-800 hover:bg-primary-500/20 transition-all duration-300 group"
+          >
+            <Github className="w-6 h-6 text-text-secondary group-hover:text-primary-500 transition-colors duration-300" />
+          </a>
+          <a 
+            href="https://x.com/utkarshh_24?t=DlWFEbvPtBUBHlG3bCnqkg&s=09" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-full bg-dark-800 hover:bg-primary-500/20 transition-all duration-300 group"
+          >
+            <Twitter className="w-6 h-6 text-text-secondary group-hover:text-primary-500 transition-colors duration-300" />
+          </a>
         </div>
       </div>
     </section>

@@ -13,7 +13,7 @@ const education = [
     period: '2021 - 2025',
     description: 'Pursuing Bachelor of Technology in Computer Science and Engineering with focus on software development, algorithms, and emerging technologies.',
     icon: GraduationCap,
-    logoUrl: '/kiit-logo.svg', // KIIT University logo
+    logoUrl: '/kiit-logo.jpg', // Official KIIT University logo
     color: 'text-primary-500',
     bgColor: 'bg-primary-500/10',
   },
@@ -47,7 +47,7 @@ const Education = () => {
 
   return (
     <section ref={sectionRef} id="education" className="py-20 bg-dark-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           variants={containerVariants}
@@ -68,35 +68,44 @@ const Education = () => {
             My academic journey in computer science and engineering.
           </motion.p>
         </motion.div>
-        <div className="grid md:grid-cols-2 gap-8 justify-center">
+        
+        <div className="space-y-8">
           {education.map((edu) => (
             <motion.div
               key={edu.institution}
               variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="glass p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover-3d max-w-md mx-auto"
+              className="border-b border-dark-700 pb-8 last:border-b-0"
             >
-              <div className="flex items-center mb-4">
-                <div className={`p-3 rounded-lg ${edu.bgColor} mr-4 flex items-center justify-center`}>
-                  {edu.logoUrl ? (
-                    <Image
-                      src={edu.logoUrl}
-                      alt={`${edu.institution} logo`}
-                      width={32}
-                      height={32}
-                      className="object-contain"
-                    />
-                  ) : (
-                    <edu.icon className={`w-6 h-6 ${edu.color}`} />
-                  )}
+              <div className="flex items-start space-x-6">
+                {/* Icon */}
+                <div className="flex-shrink-0">
+                  <div className={`p-3 rounded-lg ${edu.bgColor} flex items-center justify-center`}>
+                    {edu.logoUrl ? (
+                      <Image
+                        src={edu.logoUrl}
+                        alt={`${edu.institution} logo`}
+                        width={32}
+                        height={32}
+                        className="object-contain"
+                      />
+                    ) : (
+                      <edu.icon className={`w-6 h-6 ${edu.color}`} />
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-text-primary">{edu.institution}</h3>
-                  <p className="text-primary-500 font-semibold">{edu.degree}</p>
-                  <p className="text-text-secondary text-sm">{edu.period}</p>
+                
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-2xl font-bold text-text-primary">{edu.institution}</h3>
+                    <span className="text-sm text-text-secondary bg-dark-700 px-3 py-1 rounded-full">
+                      {edu.period}
+                    </span>
+                  </div>
+                  <p className="text-lg text-primary-500 font-semibold mb-3">{edu.degree}</p>
+                  <p className="text-text-secondary leading-relaxed">{edu.description}</p>
                 </div>
               </div>
-              <p className="text-text-secondary leading-relaxed">{edu.description}</p>
             </motion.div>
           ))}
         </div>

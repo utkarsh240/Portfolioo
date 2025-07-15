@@ -9,7 +9,7 @@ const experiences = [
   {
     company: 'Ekaant',
     role: 'Software Developer Intern',
-    period: 'May 2024 - Present',
+    period: 'May 2024 - July 2024',
     description: 'Worked on scalable web applications using React.js, Tailwind CSS, TypeScript, Docker, and AWS. Collaborated with cross-functional teams to deliver robust solutions.',
     icon: Briefcase,
     color: 'text-primary-500',
@@ -18,7 +18,7 @@ const experiences = [
   {
     company: 'WebXstreet',
     role: 'Cofounder',
-    period: '2022 - Present',
+    period: 'Feb 2022 - March 2023',
     description: 'Co-founded a web solutions startup, leading product development, client acquisition, and project delivery. Specialized in modern web technologies and business growth.',
     icon: Users,
     color: 'text-electric-500',
@@ -54,7 +54,7 @@ const Experience = () => {
 
   return (
     <section ref={sectionRef} id="experience" className="py-20 bg-dark-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           variants={containerVariants}
@@ -75,25 +75,34 @@ const Experience = () => {
             My journey through impactful roles and entrepreneurial ventures.
           </motion.p>
         </motion.div>
-        <div className="grid md:grid-cols-2 gap-8">
+        
+        <div className="space-y-8">
           {experiences.map((exp) => (
             <motion.div
               key={exp.company}
               variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="glass p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover-3d"
+              className="border-b border-dark-700 pb-8 last:border-b-0"
             >
-              <div className="flex items-center mb-4">
-                <div className={`p-3 rounded-lg ${exp.bgColor} mr-4`}>
-                  <exp.icon className={`w-6 h-6 ${exp.color}`} />
+              <div className="flex items-start space-x-6">
+                {/* Icon */}
+                <div className="flex-shrink-0">
+                  <div className={`p-3 rounded-lg ${exp.bgColor} flex items-center justify-center`}>
+                    <exp.icon className={`w-6 h-6 ${exp.color}`} />
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-text-primary">{exp.company}</h3>
-                  <p className="text-primary-500 font-semibold">{exp.role}</p>
-                  <p className="text-text-secondary text-sm">{exp.period}</p>
+                
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-2xl font-bold text-text-primary">{exp.company}</h3>
+                    <span className="text-sm text-text-secondary bg-dark-700 px-3 py-1 rounded-full">
+                      {exp.period}
+                    </span>
+                  </div>
+                  <p className="text-lg text-primary-500 font-semibold mb-3">{exp.role}</p>
+                  <p className="text-text-secondary leading-relaxed">{exp.description}</p>
                 </div>
               </div>
-              <p className="text-text-secondary leading-relaxed">{exp.description}</p>
             </motion.div>
           ))}
         </div>
