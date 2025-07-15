@@ -1,10 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useRef, useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { Mail, Phone, MapPin, Github, Linkedin, Send } from 'lucide-react'
+import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useCursorEffects } from '@/hooks/useCursorEffects'
@@ -15,14 +12,9 @@ if (typeof window !== 'undefined') {
 }
 
 const Contact = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
   const sectionRef = useRef<HTMLElement>(null)
   const contactInfoRef = useRef<HTMLDivElement>(null)
-  const formRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
   const socialIconRefs = useRef<(HTMLAnchorElement | null)[]>([])
   const sendBtnRef = useRef<HTMLButtonElement>(null)
 
@@ -153,103 +145,15 @@ const Contact = () => {
     }
   }, [rawX, rawY])
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData)
-    
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' })
-    setIsSubmitting(false)
-    
-    // Show success message (you can implement a toast notification here)
-    alert('Thank you for your message! I&apos;ll get back to you soon.')
-  }
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email',
-      value: 'utk24g@gmail.com',
-      link: 'mailto:utk24g@gmail.com',
-      color: 'text-primary-500'
-    },
-    {
-      icon: Phone,
-      title: 'Phone',
-      value: '+91-9934546008',
-      link: 'tel:+919934546008',
-      color: 'text-electric-500'
-    },
-    {
-      icon: MapPin,
-      title: 'Location',
-      value: 'Bhubaneswar, Odisha, India',
-      link: '#',
-      color: 'text-primary-500'
-    }
-  ]
-
-  const socialLinks = [
-    {
-      icon: Github,
-      name: 'GitHub',
-      url: 'https://github.com/utkarsh240',
-      color: 'text-text-secondary hover:text-primary-500'
-    },
-    {
-      icon: Linkedin,
-      name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/utkarsh-gupta-53647b217/',
-      color: 'text-text-secondary hover:text-primary-500'
-    }
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  }
-
   return (
-    <section id="contact" className="py-20 px-4 bg-dark-900 flex justify-center">
+    <section ref={sectionRef} id="contact" className="py-20 px-4 bg-dark-900 flex justify-center">
       <div className="max-w-xl w-full bg-dark-800 rounded-2xl shadow-lg p-8 flex flex-col gap-6">
         <h2 className="text-3xl md:text-4xl font-bold font-heading text-text-primary mb-2">Contact</h2>
-        <form className="flex flex-col gap-4">
+        <form ref={formRef} className="flex flex-col gap-4">
           <input type="text" placeholder="Name" className="bg-dark-900 border border-dark-700 rounded-lg px-4 py-3 text-text-primary font-body focus:border-primary-500 focus:outline-none" />
           <input type="email" placeholder="Email" className="bg-dark-900 border border-dark-700 rounded-lg px-4 py-3 text-text-primary font-body focus:border-primary-500 focus:outline-none" />
           <textarea placeholder="Message" rows={4} className="bg-dark-900 border border-dark-700 rounded-lg px-4 py-3 text-text-primary font-body focus:border-primary-500 focus:outline-none" />
-          <button type="submit" className="btn-primary font-heading mt-2">Send Message</button>
+          <button ref={sendBtnRef} type="submit" className="btn-primary font-heading mt-2">Send Message</button>
         </form>
       </div>
     </section>
