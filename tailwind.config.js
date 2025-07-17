@@ -1,118 +1,83 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ["class"],
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
-  darkMode: 'class',
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
-        // GSAP-inspired color palette
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#8BC34A', // GSAP Lime Green
-          600: '#9CCC65', // Lighter Green for Hover
-          700: '#7CB342', // Darker Green
-          800: '#689F38',
-          900: '#558B2F',
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        // Alternative Electric Blue option
-        electric: {
-          50: '#e0f7ff',
-          100: '#b3e5fc',
-          200: '#80d8ff',
-          300: '#4dd0e1',
-          400: '#26c6da',
-          500: '#00C2E0', // Electric Blue
-          600: '#00acc1',
-          700: '#0097a7',
-          800: '#00838f',
-          900: '#006064',
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        // Dark theme colors
-        dark: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#2C2C2C', // Card/Section Background
-          900: '#1A1A1A', // Deep Charcoal Background
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        // Text colors
-        text: {
-          primary: '#F0F0F0',    // Main Text (Off-White)
-          secondary: '#A0A0A0',  // Subtle Text (Medium Grey)
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        // Accent colors
         accent: {
-          glow: 'rgba(139, 195, 74, 0.3)', // Glow Effect
-          error: '#FF6347', // Error/Warning Red
-        }
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
       },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'bounce-slow': 'bounce 3s infinite',
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'typewriter': 'typewriter 3s steps(40) 1s 1 normal both',
-        'blink': 'blink 1s infinite',
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
         },
-        slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+        "fade-in": {
+          "0%": { opacity: 0, transform: "translateY(10px)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
         },
-        glow: {
-          '0%': { 
-            boxShadow: '0 0 5px rgba(139, 195, 74, 0.3)',
-            textShadow: '0 0 5px rgba(139, 195, 74, 0.3)'
-          },
-          '100%': { 
-            boxShadow: '0 0 20px rgba(139, 195, 74, 0.6)',
-            textShadow: '0 0 20px rgba(139, 195, 74, 0.6)'
-          },
-        },
-        typewriter: {
-          '0%': { width: '0' },
-          '100%': { width: '100%' },
-        },
-        blink: {
-          '0%, 50%': { opacity: '1' },
-          '51%, 100%': { opacity: '0' },
-        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
       },
       fontFamily: {
-        'heading': ['Manrope', 'sans-serif'], // For headings
-        'body': ['Inter', 'sans-serif'],      // For body text
-        'mono': ['JetBrains Mono', 'monospace'],
-        'sans': ['Inter', 'sans-serif'], // fallback for general sans
-      },
-      letterSpacing: {
-        'wide': '0.05em',
-        'wider': '0.1em',
-        'widest': '0.2em',
-      },
-      backdropBlur: {
-        xs: '2px',
+        'heading': ['Libre Baskerville', 'serif'],
+        'body': ['Libre Baskerville', 'serif'],
       },
     },
   },

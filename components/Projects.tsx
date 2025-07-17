@@ -1,7 +1,9 @@
 'use client'
 
 import React from 'react'
+import { motion } from 'framer-motion'
 import { Github, Video, FileText, Film } from 'lucide-react'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 
 const Projects = () => {
   const projects = [
@@ -11,8 +13,9 @@ const Projects = () => {
       technologies: ['Next.js', 'TypeScript', 'Bunny.net', 'Arcjet', 'Better Auth'],
       category: 'Full Stack',
       icon: Video,
-      color: 'text-primary-500',
-      bgColor: 'bg-primary-500/10',
+      color: 'text-blue-500',
+      bgColor: 'bg-blue-500/10',
+
       github: 'https://github.com/utkarsh240/screensend',
       features: [
         'Screen recording & video sharing',
@@ -27,8 +30,9 @@ const Projects = () => {
       technologies: ['Python', 'Streamlit', 'LangChain', 'OpenAI GPT-4', 'Qdrant'],
       category: 'AI/ML',
       icon: FileText,
-      color: 'text-electric-500',
-      bgColor: 'bg-electric-500/10',
+      color: 'text-green-500',
+      bgColor: 'bg-green-500/10',
+
       github: 'https://github.com/utkarsh240/Pdf_analysis',
       features: [
         'PDF document processing',
@@ -43,8 +47,9 @@ const Projects = () => {
       technologies: ['React.js', 'Tailwind CSS', 'Vite', 'TMDB API'],
       category: 'Frontend',
       icon: Film,
-      color: 'text-primary-500',
-      bgColor: 'bg-primary-500/10',
+      color: 'text-purple-500',
+      bgColor: 'bg-purple-500/10',
+
       github: 'https://github.com/utkarsh240/FilmFinder',
       features: [
         'Movie discovery & search',
@@ -56,70 +61,86 @@ const Projects = () => {
   ]
 
   return (
-    <section id="projects" className="py-20 px-4 bg-dark-900">
+    <section id="projects" className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold font-heading text-text-primary mb-12 text-center">Featured Projects</h2>
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-3xl md:text-4xl font-bold font-heading text-foreground mb-12"
+        >
+          Featured <span className="gradient-text">Projects</span>
+        </motion.h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <div key={project.title} className="bg-dark-800 rounded-xl border border-dark-700 hover:border-primary-500 transition-all duration-300 overflow-hidden">
-              {/* Project Icon/Header */}
-              <div className={`relative h-48 ${project.bgColor} flex items-center justify-center`}>
-                <div className={`p-4 rounded-lg bg-dark-800/20`}>
-                  <project.icon className={`w-12 h-12 ${project.color}`} />
-                </div>
-                <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 bg-dark-800/90 text-primary-500 text-xs font-semibold rounded-full border border-primary-500/30">
-                    {project.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-text-primary mb-3">{project.title}</h3>
-                <p className="text-text-secondary mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-dark-700 text-primary-500 text-xs font-semibold rounded-full border border-primary-500/30"
-                    >
-                      {tech}
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+            >
+              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
+                {/* Project Icon/Header */}
+                <div className={`relative h-48 ${project.bgColor} flex items-center justify-center`}>
+                  <div className="p-4 rounded-lg bg-background/20">
+                    <project.icon className={`w-12 h-12 ${project.color}`} />
+                  </div>
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 bg-background/90 text-primary text-xs font-semibold rounded-full border border-primary/30">
+                      {project.category}
                     </span>
-                  ))}
+                  </div>
                 </div>
 
-                {/* Features */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-text-primary mb-2">Key Features:</h4>
-                  <ul className="space-y-1">
-                    {project.features.slice(0, 3).map((feature, idx) => (
-                      <li key={idx} className="text-text-secondary text-sm flex items-center">
-                        <span className="w-1 h-1 bg-primary-500 rounded-full mr-2"></span>
-                        {feature}
-                      </li>
+                {/* Project Content */}
+                <CardContent className="p-6">
+                  <CardTitle className="text-2xl font-bold text-foreground mb-3">{project.title}</CardTitle>
+                  <p className="text-muted-foreground mb-4">
+                    {project.description}
+                  </p>
+
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-muted text-primary text-xs font-semibold rounded-full border border-primary/30"
+                      >
+                        {tech}
+                      </span>
                     ))}
-                  </ul>
-                </div>
+                  </div>
 
-                {/* Action Button */}
-                <div className="flex gap-3">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-semibold transition-all duration-300"
-                  >
-                    <Github size={16} />
-                    View Code
-                  </a>
-                </div>
-              </div>
-            </div>
+                  {/* Features */}
+                  <div className="mb-6">
+                    <h4 className="text-sm font-semibold text-foreground mb-2">Key Features:</h4>
+                    <ul className="space-y-1">
+                      {project.features.slice(0, 3).map((feature, idx) => (
+                        <li key={idx} className="text-muted-foreground text-sm flex items-center">
+                          <span className="w-1 h-1 bg-primary rounded-full mr-2"></span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Action Button */}
+                  <div className="flex gap-3">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg text-sm font-semibold transition-all duration-300"
+                    >
+                      <Github size={16} />
+                      View Code
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
