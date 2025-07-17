@@ -2,7 +2,8 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Code, Database, Globe, Zap, Brain } from 'lucide-react'
+import { Code, Database, Globe, Zap, Brain, Shield } from 'lucide-react'
+import Image from 'next/image'
 import {
   Tooltip,
   TooltipContent,
@@ -19,7 +20,7 @@ const technologyLogos: { [key: string]: string } = {
   'React.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
   'Next.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
   'Express.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
-  'Tailwind CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg',
+  'Tailwind CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg',
   'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
   'HTML': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
   'CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
@@ -37,6 +38,8 @@ const technologyLogos: { [key: string]: string } = {
   'LangGraph': 'https://python.langchain.com/img/favicon.ico',
   'Qdrant': 'https://qdrant.tech/favicon.ico',
   'Bunny.net': 'https://bunny.net/favicon.ico',
+  'Arcjet': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/security/security-original.svg',
+  'Better Auth': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
 }
 
 const Skills = () => {
@@ -109,22 +112,27 @@ const Skills = () => {
                     <Tooltip key={skill}>
                       <TooltipTrigger asChild>
                         <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          className="flex items-center gap-2 px-4 py-2 bg-card border border-border text-muted-foreground rounded-lg hover:border-primary hover:text-primary transition-all duration-200 text-sm font-medium cursor-pointer"
+                          whileHover={{ scale: 1.02, y: -2 }}
+                          className="flex items-center gap-3 px-4 py-3 bg-card/50 border border-border/50 text-foreground rounded-xl hover:bg-card hover:border-primary/50 hover:shadow-lg transition-all duration-300 text-sm font-medium cursor-pointer backdrop-blur-sm"
                         >
-                          {technologyLogos[skill] ? (
-                            <img 
-                              src={technologyLogos[skill]} 
-                              alt={`${skill} logo`}
-                              className="w-5 h-5 object-contain"
-                              onError={(e) => {
-                                // Fallback to text if image fails to load
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                              }}
-                            />
-                          ) : null}
-                          <span>{skill}</span>
+                          {skill === 'Arcjet' ? (
+                            <div className="flex-shrink-0">
+                              <Shield className="w-[18px] h-[18px] text-blue-500" />
+                            </div>
+                          ) : technologyLogos[skill] ? (
+                            <div className="flex-shrink-0">
+                              <Image 
+                                src={technologyLogos[skill]} 
+                                alt={`${skill} logo`}
+                                width={18}
+                                height={18}
+                                className="object-contain"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-[18px] h-[18px] flex-shrink-0" />
+                          )}
+                          <span className="font-medium">{skill}</span>
                         </motion.div>
                       </TooltipTrigger>
                       <TooltipContent>
