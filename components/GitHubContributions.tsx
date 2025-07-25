@@ -4,17 +4,39 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Github } from 'lucide-react'
 
+// Define proper types for GitHub contribution data
+interface ContributionDay {
+  contributionCount: number
+  date: string
+}
+
+interface ContributionWeek {
+  contributionDays: ContributionDay[]
+}
+
+interface GitHubResponse {
+  data: {
+    user: {
+      contributionsCollection: {
+        contributionCalendar: {
+          weeks: ContributionWeek[]
+        }
+      }
+    }
+  }
+  errors?: Array<{ message: string }>
+}
+
 const GitHubContributions = () => {
-  const [contributions, setContributions] = useState<any[]>([])
+  const [contributions, setContributions] = useState<number[][]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [useFallback, setUseFallback] = useState(false)
 
   // Generate mock contribution data for fallback
-  const generateMockContributions = () => {
-    const mockData = []
+  const generateMockContributions = (): number[][] => {
+    const mockData: number[][] = []
     for (let week = 0; week < 52; week++) {
-      const weekData = []
+      const weekData: number[] = []
       for (let day = 0; day < 7; day++) {
         // Generate random contribution counts (0-10)
         weekData.push(Math.floor(Math.random() * 11))
@@ -71,7 +93,7 @@ const GitHubContributions = () => {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`)
         }
 
-        const data = await response.json()
+        const data: GitHubResponse = await response.json()
         
         if (data.errors) {
           throw new Error(data.errors[0].message)
@@ -82,8 +104,8 @@ const GitHubContributions = () => {
         }
 
         const weeks = data.data.user.contributionsCollection.contributionCalendar.weeks
-        const contributionData = weeks.map((week: any) => 
-          week.contributionDays.map((day: any) => day.contributionCount)
+        const contributionData = weeks.map((week: ContributionWeek) => 
+          week.contributionDays.map((day: ContributionDay) => day.contributionCount)
         )
 
         setContributions(contributionData)
@@ -117,7 +139,7 @@ const GitHubContributions = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
               GitHub <span className="gradient-text">Contributions</span>
             </h2>
             <div className="flex justify-center">
