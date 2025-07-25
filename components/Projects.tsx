@@ -61,18 +61,18 @@ const Projects = () => {
   ]
 
   return (
-    <section id="projects" className="py-20 px-4 bg-background">
+    <section id="projects" className="py-8 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-bold font-heading text-foreground mb-12"
+          className="text-2xl md:text-3xl font-bold font-heading text-foreground mb-6 text-left"
         >
           Featured <span className="gradient-text">Projects</span>
         </motion.h2>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -96,7 +96,7 @@ const Projects = () => {
 
                 {/* Project Content */}
                 <CardContent className="p-6">
-                  <CardTitle className="text-2xl font-bold text-foreground mb-3">{project.title}</CardTitle>
+                  <CardTitle className="text-lg md:text-xl font-bold text-foreground mb-3">{project.title}</CardTitle>
                   <p className="text-muted-foreground mb-4">
                     {project.description}
                   </p>

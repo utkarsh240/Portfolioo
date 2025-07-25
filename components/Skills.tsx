@@ -2,91 +2,75 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Code, Database, Globe, Zap, Brain, Shield } from 'lucide-react'
 import Image from 'next/image'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-
-// Technology logos mapping
-const technologyLogos: { [key: string]: string } = {
-  'Java': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
-  'JavaScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-  'TypeScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-  'Python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-  'React.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-  'Next.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
-  'Express.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
-  'Tailwind CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg',
-  'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
-  'HTML': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
-  'CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
-  'MongoDB': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
-  'SQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
-  'Git': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-  'GitHub': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
-  'Postman': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg',
-  'Docker': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
-  'Vercel': 'https://assets.vercel.com/image/upload/q_auto/front/assets/design/vercel-triangle-black.svg',
-  'Vite': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg',
-  'Streamlit': 'https://streamlit.io/images/brand/streamlit-mark-color.png',
-  'OpenAI GPT-4': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
-  'LangChain': 'https://python.langchain.com/img/favicon.ico',
-  'LangGraph': 'https://python.langchain.com/img/favicon.ico',
-  'Qdrant': 'https://qdrant.tech/favicon.ico',
-  'Bunny.net': 'https://bunny.net/favicon.ico',
-  'Arcjet': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/security/security-original.svg',
-  'Better Auth': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
-}
 
 const Skills = () => {
   const skillCategories = [
     {
-      title: 'Programming Languages',
-      icon: Code,
-      color: 'text-blue-500',
-      skills: ['Java', 'JavaScript', 'TypeScript', 'Python']
+      title: 'Languages',
+      skills: [
+        { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', color: 'bg-red-500' },
+        { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', color: 'bg-yellow-500' },
+        { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', color: 'bg-blue-500' },
+        { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-blue-500' }
+      ]
     },
     {
-      title: 'Web Technologies',
-      icon: Globe,
-      color: 'text-green-500',
-      skills: ['React.js', 'Next.js', 'Express.js', 'Tailwind CSS', 'Node.js', 'HTML', 'CSS', 'Streamlit']
+      title: 'Web Development',
+      skills: [
+        { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', color: 'bg-orange-500' },
+        { name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', color: 'bg-blue-500' },
+        { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: 'bg-blue-500' },
+        { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: 'bg-black' },
+        { name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', color: 'bg-gray-500' },
+        { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', color: 'bg-blue-500' },
+        { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: 'bg-green-500' },
+        { name: 'Streamlit', icon: 'https://streamlit.io/images/brand/streamlit-mark-color.png', color: 'bg-red-500' }
+      ]
     },
     {
       title: 'Databases',
-      icon: Database,
-      color: 'text-purple-500',
-      skills: ['MongoDB', 'SQL', 'Qdrant']
+      skills: [
+        { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: 'bg-green-500' },
+        { name: 'SQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', color: 'bg-blue-500' },
+        { name: 'Qdrant', icon: 'https://qdrant.tech/favicon.ico', color: 'bg-purple-500' }
+      ]
     },
     {
       title: 'AI/ML & APIs',
-      icon: Brain,
-      color: 'text-orange-500',
-      skills: ['OpenAI GPT-4', 'LangChain', 'LangGraph']
+      skills: [
+        { name: 'OpenAI GPT-4', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg', color: 'bg-green-500' },
+        { name: 'LangChain', icon: 'https://python.langchain.com/img/favicon.ico', color: 'bg-blue-500' },
+        { name: 'LangGraph', icon: 'https://python.langchain.com/img/favicon.ico', color: 'bg-blue-500' }
+      ]
     },
     {
       title: 'Tools/Platforms',
-      icon: Zap,
-      color: 'text-pink-500',
-      skills: ['Git', 'GitHub', 'Postman', 'Docker', 'Vercel', 'Vite', 'Bunny.net', 'Arcjet', 'Better Auth']
+      skills: [
+        { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', color: 'bg-orange-500' },
+        { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', color: 'bg-black' },
+        { name: 'Postman', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg', color: 'bg-orange-500' },
+        { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', color: 'bg-blue-500' },
+        { name: 'Vercel', icon: 'https://assets.vercel.com/image/upload/q_auto/front/assets/design/vercel-triangle-black.svg', color: 'bg-black' },
+        { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg', color: 'bg-purple-500' },
+        { name: 'Bunny.net', icon: 'https://bunny.net/favicon.ico', color: 'bg-orange-500' },
+        { name: 'Arcjet', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/security/security-original.svg', color: 'bg-blue-500' },
+        { name: 'Better Auth', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg', color: 'bg-orange-500' }
+      ]
     }
   ]
 
   return (
-    <section id="skills" className="py-20 px-4 bg-muted/30">
-      <div className="max-w-4xl mx-auto">
+    <section id="skills" className="py-8 px-4 bg-background">
+      <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-bold font-heading text-foreground mb-12"
+          className="text-2xl md:text-3xl font-bold text-white mb-6 text-left"
         >
-          Skills & <span className="gradient-text">Technologies</span>
+          Tech <span className="gradient-text">Skills</span>
         </motion.h2>
         
         <div className="space-y-8">
@@ -100,48 +84,29 @@ const Skills = () => {
               className="space-y-4"
             >
               {/* Category Header */}
-              <div className="flex items-center gap-3">
-                <category.icon className={`w-6 h-6 ${category.color}`} />
-                <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
-              </div>
+              <h3 className="text-base md:text-lg font-semibold text-white">{category.title}</h3>
               
               {/* Skills List */}
-              <TooltipProvider>
-                <div className="flex flex-wrap gap-3 pl-9">
-                  {category.skills.map((skill) => (
-                    <Tooltip key={skill}>
-                      <TooltipTrigger asChild>
-                        <motion.div
-                          whileHover={{ scale: 1.02, y: -2 }}
-                          className="flex items-center gap-3 px-4 py-3 bg-card/50 border border-border/50 text-foreground rounded-xl hover:bg-card hover:border-primary/50 hover:shadow-lg transition-all duration-300 text-sm font-medium cursor-pointer backdrop-blur-sm"
-                        >
-                          {skill === 'Arcjet' ? (
-                            <div className="flex-shrink-0">
-                              <Shield className="w-[18px] h-[18px] text-blue-500" />
-                            </div>
-                          ) : technologyLogos[skill] ? (
-                            <div className="flex-shrink-0">
-                              <Image 
-                                src={technologyLogos[skill]} 
-                                alt={`${skill} logo`}
-                                width={18}
-                                height={18}
-                                className="object-contain"
-                              />
-                            </div>
-                          ) : (
-                            <div className="w-[18px] h-[18px] flex-shrink-0" />
-                          )}
-                          <span className="font-medium">{skill}</span>
-                        </motion.div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{skill}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  ))}
-                </div>
-              </TooltipProvider>
+              <div className="flex flex-wrap gap-3">
+                {category.skills.map((skill) => (
+                  <motion.div
+                    key={skill.name}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="flex items-center gap-3 px-4 py-2 bg-gray-800 text-white rounded-full border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+                  >
+                    <div className="flex-shrink-0">
+                      <Image 
+                        src={skill.icon} 
+                        alt={`${skill.name} logo`}
+                        width={20}
+                        height={20}
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="font-medium">{skill.name}</span>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>

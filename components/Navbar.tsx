@@ -1,21 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { ThemeToggle } from './theme-toggle'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const { scrollY } = useScroll()
+  
+  // Transform scrollY to navbar height, padding, and border radius
+  const navbarHeight = useTransform(scrollY, [0, 100], [80, 60])
+  const navbarPadding = useTransform(scrollY, [0, 100], [16, 8])
+  const logoScale = useTransform(scrollY, [0, 100], [1, 0.8])
+  const borderRadius = useTransform(scrollY, [0, 100], [0, 12])
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -36,48 +34,46 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-background/90 shadow-lg py-2' : 'bg-background/80 py-4'
-      } backdrop-blur-md border-b border-border`}
+      style={{
+        height: navbarHeight,
+        paddingTop: navbarPadding,
+        paddingBottom: navbarPadding,
+        borderRadius: borderRadius,
+      }}
+      className="fixed top-4 left-4 right-4 z-50 bg-background/90 backdrop-blur-md shadow-lg"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex justify-between items-center">
-        {/* Logo */}
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="text-2xl font-extrabold tracking-wider flex items-center select-none"
-        >
-        </motion.div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 flex justify-between items-center h-full">
+        {/* Left Side - Empty for now */}
+        <div className="flex-1"></div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6">
+        {/* Center - Navigation Links */}
+        <motion.div 
+          className="hidden md:flex space-x-6"
+          style={{ scale: logoScale }}
+        >
           {navItems.map((item) => (
             <button
               key={item.name}
               onClick={() => scrollToSection(item.href)}
-              className={`transition-colors duration-200 font-body font-semibold px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
-                item.name === 'Home' 
-                  ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/20' 
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
+              className="transition-all duration-200 text-sm font-medium px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-white hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text"
             >
               {item.name}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Theme Toggle and Mobile menu button */}
+        {/* Right Side - Theme Toggle and Mobile menu button */}
         <div className="flex items-center space-x-4">
           <ThemeToggle />
+          
+          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground p-2 rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-white p-2 rounded hover:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -89,18 +85,14 @@ const Navbar = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-background/95 px-4 pt-2 pb-4 rounded-b-xl shadow-lg border-b border-border"
+          className="md:hidden bg-background/95 px-4 pt-2 pb-4 rounded-b-xl shadow-lg mt-2"
         >
           <div className="flex flex-col space-y-2">
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className={`transition-colors duration-200 font-body font-semibold text-left px-2 py-2 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
-                  item.name === 'Home' 
-                    ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/20' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
+                className="transition-all duration-200 text-sm font-medium text-left px-2 py-2 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-white hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text"
               >
                 {item.name}
               </button>

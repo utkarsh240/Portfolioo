@@ -41,25 +41,25 @@ const itemVariants = {
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-20 bg-background">
+    <section id="experience" className="py-8 bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-6"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold mb-4 text-foreground"
+            className="text-2xl md:text-3xl font-bold mb-4 text-foreground text-left"
           >
             Professional <span className="gradient-text">Experience</span>
           </motion.h2>
 
         </motion.div>
         
-        <div className="space-y-8">
+        <div className="space-y-6">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.company}
@@ -67,7 +67,7 @@ const Experience = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="border-b border-border pb-8 last:border-b-0"
+              className="border-b border-border pb-6 last:border-b-0"
             >
               <div className="flex items-start space-x-6">
                 {/* Icon */}
@@ -80,7 +80,7 @@ const Experience = () => {
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-2xl font-bold text-foreground">{exp.company}</h3>
+                    <h3 className="text-lg md:text-xl font-bold text-foreground">{exp.company}</h3>
                     <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
                       {exp.period}
                     </span>
