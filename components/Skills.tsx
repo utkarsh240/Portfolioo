@@ -54,7 +54,6 @@ const Skills = () => {
         { name: 'Vercel', icon: 'https://assets.vercel.com/image/upload/q_auto/front/assets/design/vercel-triangle-black.svg', color: 'bg-black' },
         { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg', color: 'bg-purple-500' },
         { name: 'Bunny.net', icon: 'https://bunny.net/favicon.ico', color: 'bg-orange-500' },
-        { name: 'Arcjet', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/security/security-original.svg', color: 'bg-blue-500' },
         { name: 'Better Auth', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg', color: 'bg-orange-500' }
       ]
     }
