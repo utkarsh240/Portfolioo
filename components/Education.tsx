@@ -45,7 +45,7 @@ const Education = () => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-2xl md:text-3xl font-bold mb-4 text-foreground text-left"
+            className="text-xl md:text-2xl font-bold mb-4 text-foreground text-left"
           >
             Educational <span className="gradient-text">Background</span>
           </motion.h2>
@@ -62,34 +62,34 @@ const Education = () => {
               transition={{ duration: 0.8, delay: index * 0.1 }}
               className="border-b border-border pb-6 last:border-b-0"
             >
-              <div className="flex items-start space-x-6">
+              <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
                 {/* Icon */}
                 <div className="flex-shrink-0">
-                  <div className={`p-3 rounded-lg ${edu.bgColor} flex items-center justify-center`}>
+                  <div className={`p-2.5 sm:p-3 rounded-lg ${edu.bgColor} flex items-center justify-center`}>
                     {edu.logoUrl ? (
                       <Image
                         src={edu.logoUrl}
                         alt={`${edu.institution} logo`}
-                        width={32}
-                        height={32}
-                        className="object-contain"
+                        width={28}
+                        height={28}
+                        className="object-contain sm:w-8 sm:h-8"
                       />
                     ) : (
-                      <edu.icon className={`w-6 h-6 ${edu.color}`} />
+                      <edu.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${edu.color}`} />
                     )}
                   </div>
                 </div>
                 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg md:text-xl font-bold text-foreground">{edu.institution}</h3>
-                    <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 space-y-2 sm:space-y-0">
+                    <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground">{edu.institution}</h3>
+                    <span className="text-xs sm:text-sm text-muted-foreground bg-muted px-2 sm:px-3 py-1 rounded-full self-start sm:self-auto">
                       {edu.period}
                     </span>
                   </div>
-                  <p className="text-lg text-accent-purple font-semibold mb-3">{edu.degree}</p>
-                  <p className="text-muted-foreground leading-relaxed">{edu.description}</p>
+                  <p className="text-xs sm:text-sm md:text-base text-accent-purple font-semibold mb-2 sm:mb-3">{edu.degree}</p>
+                  <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm">{edu.description}</p>
                 </div>
               </div>
             </motion.div>

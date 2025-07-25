@@ -73,6 +73,30 @@
       radial-gradient(circle at 20px 20px, rgba(255, 255, 255, 0.1) 1px, transparent 0),
       radial-gradient(circle at 40px 40px, rgba(255, 255, 255, 0.08) 1px, transparent 0);
   }
+
+  /* Mobile-specific improvements */
+  @media (max-width: 640px) {
+    body {
+      background-size: 100px 100px, 150px 150px, 200px 200px;
+    }
+    
+    /* Improve touch targets on mobile */
+    button, a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Better text wrapping on mobile */
+    p, h1, h2, h3, h4, h5, h6 {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    .overflow-x-auto {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
 }
 
 @keyframes starMove {
@@ -118,5 +142,20 @@
   
   .text-accent-purple {
     @apply text-purple-600 dark:text-purple-400;
+  }
+
+  /* Mobile-optimized line clamping */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 } 

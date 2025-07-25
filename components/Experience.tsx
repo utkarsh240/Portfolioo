@@ -52,7 +52,7 @@ const Experience = () => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-2xl md:text-3xl font-bold mb-4 text-foreground text-left"
+            className="text-xl md:text-2xl font-bold mb-4 text-foreground text-left"
           >
             Professional <span className="gradient-text">Experience</span>
           </motion.h2>
@@ -69,24 +69,24 @@ const Experience = () => {
               transition={{ duration: 0.8, delay: index * 0.1 }}
               className="border-b border-border pb-6 last:border-b-0"
             >
-              <div className="flex items-start space-x-6">
+              <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
                 {/* Icon */}
                 <div className="flex-shrink-0">
-                  <div className={`p-3 rounded-lg ${exp.bgColor} flex items-center justify-center`}>
-                    <exp.icon className={`w-6 h-6 ${exp.color}`} />
+                  <div className={`p-2.5 sm:p-3 rounded-lg ${exp.bgColor} flex items-center justify-center`}>
+                    <exp.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${exp.color}`} />
                   </div>
                 </div>
                 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg md:text-xl font-bold text-foreground">{exp.company}</h3>
-                    <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 space-y-2 sm:space-y-0">
+                    <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground">{exp.company}</h3>
+                    <span className="text-xs sm:text-sm text-muted-foreground bg-muted px-2 sm:px-3 py-1 rounded-full self-start sm:self-auto">
                       {exp.period}
                     </span>
                   </div>
-                  <p className="text-lg text-accent-blue font-semibold mb-3">{exp.role}</p>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-xs sm:text-sm md:text-base text-accent-blue font-semibold mb-2 sm:mb-3">{exp.role}</p>
+                  <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm">
                     {exp.description}
                   </p>
                 </div>

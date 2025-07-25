@@ -60,19 +60,19 @@ const Skills = () => {
   ]
 
   return (
-    <section id="skills" className="py-8 px-4 bg-background">
+    <section id="skills" className="py-8 px-4 sm:px-6 bg-background">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-left"
+          className="text-xl md:text-2xl font-bold text-foreground mb-6 text-left"
         >
           Tech <span className="gradient-text">Skills</span>
         </motion.h2>
         
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {skillCategories.map((category, index) => (
             <motion.div 
               key={category.title} 
@@ -80,29 +80,29 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="space-y-4"
+              className="space-y-3 sm:space-y-4"
             >
               {/* Category Header */}
-              <h3 className="text-base md:text-lg font-semibold text-foreground">{category.title}</h3>
+              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground">{category.title}</h3>
               
               {/* Skills List */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {category.skills.map((skill) => (
                   <motion.div
                     key={skill.name}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-3 px-4 py-2 bg-secondary text-secondary-foreground rounded-full border border-border hover:border-blue-500/50 transition-all duration-300"
+                    className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary text-secondary-foreground rounded-full border border-border hover:border-blue-500/50 transition-all duration-300"
                   >
                     <div className="flex-shrink-0">
                       <Image 
                         src={skill.icon} 
                         alt={`${skill.name} logo`}
-                        width={20}
-                        height={20}
-                        className="object-contain"
+                        width={16}
+                        height={16}
+                        className="object-contain sm:w-5 sm:h-5"
                       />
                     </div>
-                    <span className="font-medium">{skill.name}</span>
+                    <span className="font-medium text-xs sm:text-sm">{skill.name}</span>
                   </motion.div>
                 ))}
               </div>

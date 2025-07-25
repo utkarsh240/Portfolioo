@@ -132,23 +132,23 @@ const GitHubContributions = () => {
 
   if (loading) {
     return (
-      <section className="py-8 px-4 bg-background">
+      <section className="py-8 px-4 sm:px-6 bg-background">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
               GitHub <span className="gradient-text">Contributions</span>
             </h2>
             <div className="flex justify-center">
-              <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
+              <div className="bg-gray-900 p-4 sm:p-6 rounded-lg shadow-lg">
                 <div className="flex items-center gap-2 mb-4">
-                  <Github className="w-5 h-5 text-white" />
+                  <Github className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   <span className="text-white text-sm font-medium">utkarsh240</span>
                 </div>
-                <div className="text-white">Loading contributions...</div>
+                <div className="text-white text-sm">Loading contributions...</div>
               </div>
             </div>
           </motion.div>
@@ -158,7 +158,7 @@ const GitHubContributions = () => {
   }
 
   return (
-    <section className="py-8 px-4 bg-background">
+    <section className="py-8 px-4 sm:px-6 bg-background">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -167,11 +167,11 @@ const GitHubContributions = () => {
           transition={{ duration: 0.8 }}
           className="text-left mb-6"
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
             GitHub <span className="gradient-text">Contributions</span>
           </h2>
           {useFallback && (
-            <p className="text-yellow-400 text-sm mt-2">
+            <p className="text-yellow-400 text-xs sm:text-sm mt-2">
               Showing sample data (GitHub API not configured)
             </p>
           )}
@@ -184,15 +184,15 @@ const GitHubContributions = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex justify-center"
         >
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
+          <div className="bg-gray-900 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg">
             <div className="flex items-center gap-2 mb-4">
-              <Github className="w-5 h-5 text-white" />
+              <Github className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               <span className="text-white text-sm font-medium">utkarsh240</span>
             </div>
             
-            <div className="flex gap-1">
+            <div className="flex gap-0.5 sm:gap-1 overflow-x-auto">
               {contributions.map((week, weekIndex) => (
-                <div key={weekIndex} className="flex flex-col gap-1">
+                <div key={weekIndex} className="flex flex-col gap-0.5 sm:gap-1">
                   {week.map((day, dayIndex) => (
                     <motion.div
                       key={dayIndex}
@@ -203,7 +203,7 @@ const GitHubContributions = () => {
                         duration: 0.3, 
                         delay: (weekIndex * 7 + dayIndex) * 0.01 
                       }}
-                      className={`w-3 h-3 rounded-sm ${getContributionColor(day)} hover:scale-125 transition-transform duration-200`}
+                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-sm ${getContributionColor(day)} hover:scale-125 transition-transform duration-200`}
                       title={`${day} contributions`}
                     />
                   ))}
@@ -212,15 +212,15 @@ const GitHubContributions = () => {
             </div>
             
             <div className="flex items-center justify-between mt-4 text-xs text-gray-400">
-              <span>Less</span>
-              <div className="flex gap-1">
-                <div className="w-3 h-3 rounded-sm bg-gray-800"></div>
-                <div className="w-3 h-3 rounded-sm bg-green-900"></div>
-                <div className="w-3 h-3 rounded-sm bg-green-700"></div>
-                <div className="w-3 h-3 rounded-sm bg-green-500"></div>
-                <div className="w-3 h-3 rounded-sm bg-green-300"></div>
+              <span className="text-xs">Less</span>
+              <div className="flex gap-0.5 sm:gap-1">
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-sm bg-gray-800"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-sm bg-green-900"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-sm bg-green-700"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-sm bg-green-500"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-sm bg-green-300"></div>
               </div>
-              <span>More</span>
+              <span className="text-xs">More</span>
             </div>
           </div>
         </motion.div>
@@ -236,9 +236,9 @@ const GitHubContributions = () => {
             href="https://github.com/utkarsh240"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors duration-300 text-xs sm:text-sm"
           >
-            <Github size={20} />
+            <Github size={18} className="sm:w-5 sm:h-5" />
             View Full Profile
           </a>
         </motion.div>
