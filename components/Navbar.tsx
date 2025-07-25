@@ -55,7 +55,7 @@ const Navbar = () => {
             <button
               key={item.name}
               onClick={() => scrollToSection(item.href)}
-              className="transition-all duration-200 text-sm font-medium px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-white hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text"
+              className="transition-all duration-200 text-sm font-medium px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-foreground hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text"
             >
               {item.name}
             </button>
@@ -70,7 +70,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white p-2 rounded hover:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="text-foreground p-2 rounded hover:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -92,7 +92,7 @@ const Navbar = () => {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="transition-all duration-200 text-sm font-medium text-left px-2 py-2 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-white hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text"
+                className="transition-all duration-200 text-sm font-medium text-left px-2 py-2 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-foreground hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text"
               >
                 {item.name}
               </button>

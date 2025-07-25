@@ -34,7 +34,7 @@ const itemVariants = {
 
 const Education = () => {
   return (
-    <section id="education" className="py-8 bg-muted/30">
+    <section id="education" className="pt-4 pb-8 bg-muted/30">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}

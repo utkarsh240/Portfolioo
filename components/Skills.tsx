@@ -68,7 +68,7 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-2xl md:text-3xl font-bold text-white mb-6 text-left"
+          className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-left"
         >
           Tech <span className="gradient-text">Skills</span>
         </motion.h2>
@@ -84,7 +84,7 @@ const Skills = () => {
               className="space-y-4"
             >
               {/* Category Header */}
-              <h3 className="text-base md:text-lg font-semibold text-white">{category.title}</h3>
+              <h3 className="text-base md:text-lg font-semibold text-foreground">{category.title}</h3>
               
               {/* Skills List */}
               <div className="flex flex-wrap gap-3">
@@ -92,7 +92,7 @@ const Skills = () => {
                   <motion.div
                     key={skill.name}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-3 px-4 py-2 bg-gray-800 text-white rounded-full border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+                    className="flex items-center gap-3 px-4 py-2 bg-secondary text-secondary-foreground rounded-full border border-border hover:border-blue-500/50 transition-all duration-300"
                   >
                     <div className="flex-shrink-0">
                       <Image 
