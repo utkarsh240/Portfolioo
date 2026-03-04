@@ -3,6 +3,8 @@ const nextConfig = {
 
   output: 'export',
   images: {
+    // `next/image` optimization requires a server. Static export must disable it.
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'github.com' },
       { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
