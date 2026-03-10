@@ -3,9 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Github } from 'lucide-react'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import Section from './Section'
 
-// Define proper types for GitHub contribution data
 interface ContributionDay {
   contributionCount: number
   date: string
@@ -28,18 +27,15 @@ interface GitHubResponse {
   errors?: Array<{ message: string }>
 }
 
-const GitHubContributions = () => {
+export default function GitHubContributions() {
   const [contributions, setContributions] = useState<number[][]>([])
   const [loading, setLoading] = useState(true)
-  const [useFallback, setUseFallback] = useState(false)
 
-  // Generate mock contribution data for fallback
   const generateMockContributions = (): number[][] => {
     const mockData: number[][] = []
     for (let week = 0; week < 52; week++) {
       const weekData: number[] = []
       for (let day = 0; day < 7; day++) {
-        // Generate random contribution counts (0-10)
         weekData.push(Math.floor(Math.random() * 11))
       }
       mockData.push(weekData)
@@ -51,18 +47,14 @@ const GitHubContributions = () => {
     const fetchContributions = async () => {
       try {
         setLoading(true)
-        
-        // Check if GitHub token exists
         const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN
+
         if (!token) {
-          console.warn('GitHub token not found, using fallback data')
           setContributions(generateMockContributions())
-          setUseFallback(true)
           setLoading(false)
           return
         }
 
-        // Fetch contribution data from GitHub GraphQL API
         const response = await fetch('https://api.github.com/graphql', {
           method: 'POST',
           headers: {
@@ -75,7 +67,6 @@ const GitHubContributions = () => {
                 user(login: "utkarsh240") {
                   contributionsCollection {
                     contributionCalendar {
-                      totalContributions
                       weeks {
                         contributionDays {
                           contributionCount
@@ -90,32 +81,22 @@ const GitHubContributions = () => {
           })
         })
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-        }
+        if (!response.ok) throw new Error('Failed to fetch')
 
         const data: GitHubResponse = await response.json()
-        
-        if (data.errors) {
-          throw new Error(data.errors[0].message)
-        }
-
-        if (!data.data?.user?.contributionsCollection?.contributionCalendar?.weeks) {
-          throw new Error('Invalid response format from GitHub API')
+        if (data.errors || !data.data?.user?.contributionsCollection?.contributionCalendar?.weeks) {
+          throw new Error('Invalid response')
         }
 
         const weeks = data.data.user.contributionsCollection.contributionCalendar.weeks
-        const contributionData = weeks.map((week: ContributionWeek) => 
-          week.contributionDays.map((day: ContributionDay) => day.contributionCount)
+        const contributionData = weeks.map((week) =>
+          week.contributionDays.map((day) => day.contributionCount)
         )
 
         setContributions(contributionData)
-        setLoading(false)
       } catch (err) {
-        console.error('Error fetching contributions:', err)
-        // Use fallback data instead of showing error
         setContributions(generateMockContributions())
-        setUseFallback(true)
+      } finally {
         setLoading(false)
       }
     }
@@ -124,128 +105,77 @@ const GitHubContributions = () => {
   }, [])
 
   const getContributionColor = (level: number) => {
-    if (level === 0) return 'bg-muted'
-    if (level <= 3) return 'bg-emerald-200 dark:bg-emerald-900'
-    if (level <= 6) return 'bg-emerald-300 dark:bg-emerald-700'
-    if (level <= 9) return 'bg-emerald-400 dark:bg-emerald-500'
-    return 'bg-emerald-500 dark:bg-emerald-300'
-  }
-
-  if (loading) {
-    return (
-      <section className="py-8 px-4 sm:px-6 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4 text-left">
-              GitHub <span className="gradient-text">Contributions</span>
-            </h2>
-            <Card className="max-w-md sm:max-w-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-                  <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span className="font-medium">utkarsh240</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 pt-0 text-sm text-muted-foreground">
-                Loading contributions…
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-    )
+    if (level === 0) return 'bg-white/5 border border-white/5'
+    if (level <= 3) return 'bg-lime-900/40 border border-lime-800'
+    if (level <= 6) return 'bg-lime-700/60 border border-lime-600'
+    if (level <= 9) return 'bg-lime-500/80 border border-lime-400'
+    return 'bg-lime-400 border border-lime-300 shadow-[0_0_10px_rgba(163,230,53,0.5)]'
   }
 
   return (
-    <section className="py-8 px-4 sm:px-6 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-left mb-6"
-        >
-          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-            GitHub <span className="gradient-text">Contributions</span>
-          </h2>
-        </motion.div>
+    <Section id="github" className="py-24">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
+        <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-8 text-center">
+          Development <span className="text-lime-400">Activity</span>
+        </h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex justify-center"
-        >
-          <Card className="w-full max-w-md sm:max-w-lg">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="font-medium">utkarsh240</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="flex gap-0.5 sm:gap-1 overflow-x-auto pb-1">
+        <div className="w-full max-w-4xl bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 hover:-translate-y-2 hover:border-lime-400 hover:shadow-[0_20px_40px_-15px_rgba(163,230,53,0.1)] transition-all duration-300">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-12 h-12 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center">
+              <Github className="text-white" size={24} />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white leading-tight">utkarsh240</h3>
+              <p className="text-sm font-mono tracking-widest uppercase text-lime-400 mt-1">GitHub Contributions</p>
+            </div>
+          </div>
+
+          {loading ? (
+            <div className="animate-pulse flex gap-1 overflow-hidden opacity-50">
+              {Array.from({ length: 52 }).map((_, i) => (
+                <div key={i} className="flex flex-col gap-1">
+                  {Array.from({ length: 7 }).map((_, j) => (
+                    <div key={j} className="h-3 w-3 bg-black/10 dark:bg-white/10 rounded-sm" />
+                  ))}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-1 overflow-x-auto pb-4 custom-scrollbar">
               {contributions.map((week, weekIndex) => (
-                <div key={weekIndex} className="flex flex-col gap-0.5 sm:gap-1">
+                <div key={weekIndex} className="flex flex-col gap-1 shrink-0">
                   {week.map((day, dayIndex) => (
                     <motion.div
                       key={dayIndex}
-                      initial={{ opacity: 0, scale: 0 }}
+                      initial={{ opacity: 0, scale: 0.5 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ 
-                        duration: 0.3, 
-                        delay: (weekIndex * 7 + dayIndex) * 0.01 
+                      transition={{
+                        duration: 0.2,
+                        delay: (weekIndex * 7 + dayIndex) * 0.002
                       }}
-                      className={`h-2 w-2 sm:h-3 sm:w-3 rounded-sm ${getContributionColor(day)} hover:scale-125 transition-transform duration-200`}
+                      className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-[2px] ${getContributionColor(day)} transition-colors duration-200`}
                       title={`${day} contributions`}
                     />
                   ))}
                 </div>
               ))}
-              </div>
+            </div>
+          )}
 
-              <div className="flex items-center justify-between mt-4 text-xs text-muted-foreground">
-                <span className="text-xs">Less</span>
-                <div className="flex gap-0.5 sm:gap-1">
-                  <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-sm bg-muted"></div>
-                  <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-sm bg-emerald-200 dark:bg-emerald-900"></div>
-                  <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-sm bg-emerald-300 dark:bg-emerald-700"></div>
-                  <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-sm bg-emerald-400 dark:bg-emerald-500"></div>
-                  <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-sm bg-emerald-500 dark:bg-emerald-300"></div>
-                </div>
-                <span className="text-xs">More</span>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-4"
-        >
-          <a
-            href="https://github.com/utkarsh240"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-lg transition-colors duration-300 text-xs sm:text-sm border border-border"
-          >
-            <Github size={18} className="sm:w-5 sm:h-5" />
-            View Full Profile
-          </a>
-        </motion.div>
+          <div className="flex items-center justify-end mt-4 gap-2 text-xs text-muted-foreground">
+            <span>Less</span>
+            <div className="flex gap-1">
+              <div className="h-3 w-3 rounded-[2px] bg-black/5 dark:bg-white/5 border border-white/5" />
+              <div className="h-3 w-3 rounded-[2px] bg-emerald-900/40 border border-emerald-800" />
+              <div className="h-3 w-3 rounded-[2px] bg-emerald-700/60 border border-emerald-600" />
+              <div className="h-3 w-3 rounded-[2px] bg-emerald-500/80 border border-emerald-400" />
+              <div className="h-3 w-3 rounded-[2px] bg-emerald-400 border border-emerald-300 shadow-[0_0_10px_rgba(52,211,153,0.5)]" />
+            </div>
+            <span>More</span>
+          </div>
+        </div>
       </div>
-    </section>
+    </Section>
   )
 }
-
-export default GitHubContributions 

@@ -1,28 +1,27 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import React, { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import { Briefcase, Users } from 'lucide-react'
+import Section from './Section'
+import Image from 'next/image'
 
 const experiences = [
   {
     company: 'Wipro Limited',
     role: 'Software Developer Trainee',
     period: 'Dec 2025 - Present',
-    description:
-      'Training in enterprise full-stack development with .NET (C#) and Angular, building scalable backend services and RESTful APIs following enterprise coding standards, Agile workflows, and CI/CD practices.',
+    description: 'Training in enterprise full-stack development with .NET (C#) and Angular, building scalable backend services and RESTful APIs following enterprise coding standards, Agile workflows, and CI/CD practices.',
     icon: Briefcase,
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-500/10',
+    gradient: 'from-blue-500 to-indigo-500',
   },
   {
     company: 'Ekaant',
     role: 'Software Developer Intern',
     period: 'May 2024 - July 2024',
-    description:
-      'Built reusable React components in TypeScript and Tailwind CSS for a platform with 1,000+ daily active users, optimized API integration to reduce page load time, and deployed Dockerized workloads to AWS EC2 and S3.',
+    description: 'Built reusable React components in TypeScript and Tailwind CSS for a platform with 1,000+ daily active users, optimized API integration to reduce page load time, and deployed Dockerized workloads to AWS EC2 and S3.',
     icon: Briefcase,
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-500/10',
+    gradient: 'from-purple-500 to-pink-500',
   },
   {
     company: 'WebXstreet',
@@ -30,84 +29,126 @@ const experiences = [
     period: 'Feb 2022 - March 2023',
     description: 'Co-founded a web solutions startup, leading product development, client acquisition, and project delivery. Specialized in modern web technologies and business growth.',
     icon: Users,
-    color: 'text-green-500',
-    bgColor: 'bg-green-500/10',
+    gradient: 'from-orange-500 to-red-500',
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-}
+export default function Experience() {
+  const containerRef = useRef<HTMLDivElement>(null)
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-}
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Line animation
+      gsap.fromTo(
+        '.exp-timeline-line',
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          duration: 1.5,
+          ease: 'power3.inOut',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 70%',
+            end: 'bottom 80%',
+            scrub: 1,
+          },
+        }
+      )
 
-const Experience = () => {
+      // Cards stagger animation
+      gsap.utils.toArray('.exp-timeline-card').forEach((card: any) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, x: 50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+            },
+          }
+        )
+      })
+
+      // Dots animation
+      gsap.utils.toArray('.exp-timeline-dot').forEach((dot: any) => {
+        gsap.fromTo(
+          dot,
+          { opacity: 0, scale: 0 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: 'back.out(2)',
+            scrollTrigger: {
+              trigger: dot,
+              start: 'top 85%',
+            },
+          }
+        )
+      })
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="experience" className="py-8 bg-background">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-6"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="text-xl md:text-2xl font-bold mb-4 text-foreground text-left"
-          >
-            Professional <span className="gradient-text">Experience</span>
-          </motion.h2>
+    <Section id="experience" className="pt-24 pb-12">
+      <div className="mb-16">
+        <h2 className="text-3xl md:text-4xl font-heading font-semibold tracking-tight text-foreground dark:text-white mb-4">
+          Professional Experience
+        </h2>
+        <p className="text-muted-foreground text-base max-w-2xl">
+          My professional journey in software development.
+        </p>
+      </div>
 
-        </motion.div>
-        
-        <div className="space-y-6">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.company}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="border-b border-border pb-6 last:border-b-0"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
-                {/* Icon */}
-                <div className="flex-shrink-0">
-                  <div className={`p-2.5 sm:p-3 rounded-lg ${exp.bgColor} flex items-center justify-center`}>
-                    <exp.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${exp.color}`} />
+      <div ref={containerRef} className="relative max-w-4xl mx-auto">
+        {/* The Vertical Line */}
+        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-black/10 dark:bg-white/10 origin-top exp-timeline-line" />
+
+        <div className="space-y-12">
+          {experiences.map((item, index) => (
+            <div key={index} className="relative pl-12 md:pl-24">
+              {/* Timeline Dot */}
+              <div className={`exp-timeline-dot absolute left-4 md:left-8 top-6 -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br ${item.gradient} shadow-[0_0_15px_rgba(255,255,255,0.2)] border-2 border-black z-10`} />
+
+              {/* Timeline Card */}
+              <div className="exp-timeline-card group relative bg-black/5 dark:bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:bg-black/10 dark:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} p-0.5 flex-shrink-0`}>
+                      <div className="w-full h-full bg-black/50 backdrop-blur-xl rounded-[10px] flex items-center justify-center">
+                        <item.icon className="text-foreground dark:text-white" size={20} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground dark:text-white leading-tight">
+                        {item.company}
+                      </h3>
+                      <p className="text-blue-400 font-medium mt-1">
+                        {item.role}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center px-3 py-1 bg-black/5 dark:bg-white/5 border border-white/10 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap h-fit">
+                    {item.period}
                   </div>
                 </div>
-                
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 space-y-2 sm:space-y-0">
-                    <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground">{exp.company}</h3>
-                    <span className="text-xs sm:text-sm text-muted-foreground bg-muted px-2 sm:px-3 py-1 rounded-full self-start sm:self-auto">
-                      {exp.period}
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm md:text-base text-accent-blue font-semibold mb-2 sm:mb-3">{exp.role}</p>
-                  <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm">
-                    {exp.description}
-                  </p>
-                </div>
+
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
-
-export default Experience 

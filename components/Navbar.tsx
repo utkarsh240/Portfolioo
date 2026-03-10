@@ -1,49 +1,51 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import { ThemeToggle } from './theme-toggle'
+import { Menu, X, Coffee } from 'lucide-react'
 
-const Navbar = () => {
+const navItems = [
+  { name: 'Home', href: '#home', id: 'home' },
+  { name: 'Projects', href: '#projects', id: 'projects' },
+  { name: 'Skills', href: '#skills', id: 'skills' },
+  { name: 'Experience', href: '#experience', id: 'experience' },
+  { name: 'Contact', href: '#contact', id: 'contact' },
+]
+
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('home')
   const { scrollY } = useScroll()
-  
-  // Transform scrollY to navbar height, padding, and border radius
-  const navbarHeight = useTransform(scrollY, [0, 100], [80, 60])
-  const navbarPadding = useTransform(scrollY, [0, 100], [16, 8])
-  const logoScale = useTransform(scrollY, [0, 100], [1, 0.8])
-  const borderRadius = useTransform(scrollY, [0, 100], [0, 12])
 
-  // Close mobile menu when clicking outside
+  // Make the navbar slightly transparent at top, then blur more on scroll
+  const navbarBg = useTransform(
+    scrollY,
+    [0, 50],
+    ['rgba(11, 11, 12, 0.4)', 'rgba(11, 11, 12, 0.8)']
+  )
+
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element
-      if (isOpen && !target.closest('.mobile-menu')) {
-        setIsOpen(false)
-      }
+    const handleScroll = () => {
+      const sections = navItems.map((item) => document.getElementById(item.id))
+      const scrollPosition = window.scrollY + 100
+
+      sections.forEach((section) => {
+        if (!section) return
+        const sectionTop = section.offsetTop
+        const sectionHeight = section.offsetHeight
+
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionTop + sectionHeight
+        ) {
+          setActiveSection(section.id)
+        }
+      })
     }
 
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden'
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen])
-
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Education', href: '#education' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Contact', href: '#contact' },
-  ]
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
@@ -56,96 +58,90 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        style={{
-          height: navbarHeight,
-          paddingTop: navbarPadding,
-          paddingBottom: navbarPadding,
-          borderRadius: borderRadius,
-        }}
-        className="fixed top-4 left-4 right-4 z-50 bg-background/90 backdrop-blur-md shadow-lg"
+        style={{ backgroundColor: navbarBg }}
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-white/10 transition-colors duration-300"
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 flex justify-between items-center h-full">
-          {/* Left Side - Empty for now */}
-          <div className="flex-1"></div>
-
-          {/* Center - Navigation Links */}
-          <motion.div 
-            className="hidden md:flex space-x-6"
-            style={{ scale: logoScale }}
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div
+            className="flex items-center gap-3 cursor-pointer group"
+            onClick={() => scrollToSection('#home')}
           >
+            {/* Minimal Logo Icon */}
+            <div className="w-8 h-8 rounded-lg border border-white/20 flex items-center justify-center bg-white/5 group-hover:border-lime-400/50 transition-colors">
+              <span className="font-heading font-bold text-white group-hover:text-lime-400 transition-colors">UG</span>
+            </div>
+            <span className="text-xl font-heading font-bold tracking-tight text-white group-hover:text-gray-300 transition-colors">
+              Utkarsh Gupta
+            </span>
+          </div>
+
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="transition-all duration-200 text-sm font-medium px-2 py-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-foreground hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text"
+                className={`relative text-sm font-medium transition-colors hover:text-white group ${activeSection === item.id ? 'text-lime-400' : 'text-gray-400'
+                  }`}
               >
                 {item.name}
+                <span className={`absolute left-0 -bottom-1 h-[2px] w-0 bg-lime-400 transition-all duration-300 group-hover:w-full ${activeSection === item.id ? 'w-full' : ''}`} />
               </button>
             ))}
-          </motion.div>
+          </div>
 
-          {/* Right Side - Theme Toggle and Mobile menu button */}
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            
-            {/* Mobile menu button */}
-            <div className="md:hidden mobile-menu">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="text-foreground p-2 rounded hover:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
-                aria-label="Toggle menu"
-                aria-expanded={isOpen}
-              >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </div>
+          <div className="hidden md:flex items-center space-x-6">
+            <button
+              onClick={() => scrollToSection('#contact')}
+              className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-white hover:bg-white/10 hover:border-white/20 transition-all active:scale-95"
+            >
+              Let's Talk
+            </button>
+          </div>
+
+          <div className="md:hidden flex items-center">
+            <button
+              className="text-white p-2"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-              onClick={() => setIsOpen(false)}
-            />
-            
-            {/* Mobile Menu */}
-            <motion.div 
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-20 left-4 right-4 z-50 md:hidden mobile-menu"
-            >
-              <div className="bg-background/95 backdrop-blur-md rounded-xl shadow-xl border border-border/50">
-                <div className="flex flex-col py-2">
-                  {navItems.map((item, index) => (
-                    <motion.button
-                      key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      onClick={() => scrollToSection(item.href)}
-                      className="transition-all duration-200 text-sm font-medium text-left px-6 py-3 rounded-lg mx-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 text-foreground hover:text-transparent hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 hover:bg-clip-text hover:bg-muted/50"
-                    >
-                      {item.name}
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl pt-24 px-6 md:hidden"
+          >
+            <div className="flex flex-col space-y-6">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`text-3xl font-heading font-bold tracking-tight text-left ${activeSection === item.id ? 'text-lime-400' : 'text-gray-400'
+                    }`}
+                >
+                  {item.name}
+                </button>
+              ))}
+
+              <div className="h-px w-full bg-white/10 my-4" />
+
+              <button
+                onClick={() => scrollToSection('#contact')}
+                className="w-full px-6 py-4 rounded-xl bg-lime-400 text-black text-center font-bold text-lg"
+              >
+                Let's Talk
+              </button>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
   )
 }
-
-export default Navbar 

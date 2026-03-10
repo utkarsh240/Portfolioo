@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import Education from '@/components/Education'
@@ -12,16 +13,21 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <motion.main
+      className="min-h-screen bg-background pb-10"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       <Navbar />
       <Hero />
-      <Education />
-      <Experience />
       <Projects />
+      <Experience />
+      <Education />
       <Skills />
       <GitHubContributions />
       <Contact />
       <Footer />
-    </main>
+    </motion.main>
   )
 } 

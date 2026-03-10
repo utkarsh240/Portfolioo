@@ -1,130 +1,165 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Linkedin, Github, Twitter, Mail, FileText } from 'lucide-react'
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { gsap } from 'gsap'
+import { ArrowRight, Code2, Terminal } from 'lucide-react'
 
-const Hero = () => {
+export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Timeline for coordinated animation
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+      // Text stagger animation
+      tl.fromTo(
+        '.hero-stagger',
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1.2, stagger: 0.15 },
+        0.2
+      )
+
+      // Rings animation
+      gsap.to('.hero-ring-1', {
+        rotation: 360,
+        duration: 25,
+        repeat: -1,
+        ease: 'linear'
+      })
+      gsap.to('.hero-ring-2', {
+        rotation: -360,
+        duration: 35,
+        repeat: -1,
+        ease: 'linear'
+      })
+
+      // Image fade
+      tl.fromTo(
+        '.hero-image',
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 1.5 },
+        0.5
+      )
+
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="home" className="min-h-[90vh] bg-background px-4 sm:px-6 pt-20 sm:pt-24 pb-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Hero Section with Profile Picture and Info */}
-        <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12 mb-12 lg:mb-16">
-          {/* Left Side - Profile Picture and Name */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex-shrink-0 flex flex-col items-start"
-          >
-            <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-gray-700 mb-4">
-              <Image
-                src="/profile-placeholder.jpg"
-                alt="Utkarsh Gupta"
-                width={192}
-                height={192}
-                className="object-cover"
-                onError={(e) => {
-                  // Fallback to a colored div if image fails to load
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-              <div className="hidden absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl sm:text-3xl lg:text-4xl font-bold">
-                UG
-              </div>
-              {/* Online status dot - positioned on the profile picture */}
-              <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded-full border-2 border-background"></div>
-            </div>
-            
-            {/* Name and Title */}
-            <div className="text-left">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2 sm:mb-3">
-                Utkarsh <span className="gradient-text">Gupta</span>
-              </h1>
-              <div className="inline-block bg-secondary text-secondary-foreground px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3">
-                <span className="gradient-text">Full-Stack Developer</span>
-              </div>
-              <p className="text-foreground text-sm sm:text-base">Bengaluru, India</p>
-            </div>
-          </motion.div>
+    <section id="home" className="relative w-full min-h-screen flex items-center pt-24 pb-16 overflow-hidden" ref={containerRef}>
+      <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
 
-          {/* Right Side - About and Status */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex-1"
-          >
-            {/* About Section */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="mb-6 sm:mb-8"
-            >
-              <h2 className="text-base sm:text-lg md:text-xl font-bold text-foreground mb-2 sm:mb-3">About</h2>
-              <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm">
-                Computer Science Student & <span className="gradient-text font-semibold">Full Stack Developer</span> with knowledge of <span className="gradient-text font-semibold">Gen AI</span>. I build modern web applications and love solving real-world problems with code. Besides development, I am also skilled in <span className="gradient-text font-semibold">Data Structures & Algorithms</span> and practice daily LeetCode problems with Java.
+          {/* Left Text Content */}
+          <div className="flex flex-col items-start lg:pr-12">
+
+            <div className="hero-stagger inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-lime-400 font-medium tracking-wide mb-6">
+              <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
+              Available for work
+            </div>
+
+            <h1 className="hero-stagger text-5xl md:text-7xl lg:text-[5.5rem] font-heading font-bold tracking-tight text-white leading-[1.1] mb-6">
+              Utkarsh<br />
+              <span className="text-gray-500">Gupta</span>
+            </h1>
+
+            <div className="hero-stagger flex items-center gap-4 mb-10 max-w-xl">
+              <div className="w-10 h-[2px] bg-lime-400 shrink-0" />
+              <p className="text-gray-300 text-lg md:text-xl font-medium tracking-wide">
+                Full Stack Developer building modern web applications and AI-powered tools.
+                I specialize in creating beautiful, highly animated, and fast experiences.
               </p>
-            </motion.div>
+            </div>
 
-            {/* Status and Focus Section */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="space-y-4 sm:space-y-6"
-            >
-              {/* Status */}
-              <div>
-                <h3 className="text-sm sm:text-base font-bold text-foreground mb-2">STATUS</h3>
-                <div className="space-y-1 sm:space-y-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-500 rounded-full"></div>
-                    <span className="text-muted-foreground text-xs sm:text-sm">Available for work</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-blue-500 rounded-full"></div>
-                    <span className="text-muted-foreground text-xs sm:text-sm">Open to freelance</span>
-                  </div>
+            {/* Tech Badges */}
+            <div className="hero-stagger flex flex-wrap gap-4 mb-10">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-gray-300">
+                <Terminal size={14} className="text-lime-400" /> Next.js
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-gray-300">
+                <Code2 size={14} className="text-lime-400" /> React
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-gray-300">
+                <div className="w-2 h-2 rounded-full bg-blue-400" /> TypeScript
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-gray-300">
+                <div className="w-2 h-2 rounded-full bg-green-500" /> MongoDB
+              </div>
+            </div>
+
+            <div className="hero-stagger flex flex-wrap gap-5">
+              <a
+                href="#projects"
+                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-lime-400 text-black rounded-lg font-bold transition-transform hover:scale-105 active:scale-95"
+              >
+                View Projects
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              </a>
+
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center px-8 py-4 bg-transparent text-white border border-white/20 rounded-lg font-medium transition-all hover:bg-white/5 hover:border-white/40 active:scale-95"
+              >
+                Download Resume
+              </a>
+            </div>
+          </div>
+
+          {/* Right Image Content */}
+          <div className="relative flex justify-center items-center lg:justify-end mt-10 lg:mt-0 min-h-[500px]">
+            {/* Glowing Radial Gradient Background */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle at center, rgba(163,230,53,0.15), transparent 60%)'
+              }}
+            />
+
+            {/* Subtle Animated Rings */}
+            <div className="hero-ring-1 absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full border border-white/5 border-t-lime-400/20" />
+            <div className="hero-ring-2 absolute w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full border border-white/5 border-b-lime-400/20" />
+            <div className="absolute w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full border border-white/5" />
+
+            <div className="relative w-72 h-72 md:w-[400px] md:h-[400px] flex items-center justify-center">
+              <div className="hero-image relative w-[80%] h-[80%] rounded-full overflow-hidden border border-white/10 z-10 bg-black shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
+                <div className="absolute bottom-4 left-0 right-0 z-20 text-center opacity-30">
+                  <span className="font-heading font-bold text-6xl tracking-tighter text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>
+                    UTKARSH
+                  </span>
                 </div>
-              </div>
-
-              {/* Focus */}
-              <div>
-                <h3 className="text-sm sm:text-base font-bold text-foreground mb-2">FOCUS</h3>
-                <div className="space-y-1 sm:space-y-2">
-                  <div className="text-muted-foreground text-xs sm:text-sm">• <span className="gradient-text">Full-Stack Development</span></div>
-                  <div className="text-muted-foreground text-xs sm:text-sm">• <span className="gradient-text">DSA & Problem Solving</span></div>
+                {/* Fallback pattern if image is missing */}
+                <div className="absolute inset-0 bg-[#0b0b0c] flex items-center justify-center -z-10">
+                  <div className="w-full h-full opacity-20" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
                 </div>
+                <Image
+                  src="/dp.webp"
+                  alt="Utkarsh Gupta"
+                  fill
+                  className="object-cover relative z-0 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
               </div>
+            </div>
+          </div>
 
-              {/* Social Icons */}
-              <div className="flex items-center gap-2 sm:gap-3">
-                <a href="/resume.pdf" target="_blank" className="p-1.5 sm:p-2 text-foreground hover:text-blue-400 transition-colors">
-                  <FileText size={16} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="https://x.com/utkarshh_24" target="_blank" className="p-1.5 sm:p-2 text-foreground hover:text-blue-400 transition-colors">
-                  <Twitter size={16} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="https://github.com/utkarsh240" target="_blank" className="p-1.5 sm:p-2 text-foreground hover:text-blue-400 transition-colors">
-                  <Github size={16} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="https://linkedin.com/in/utkarsh-gupta-53647b217" target="_blank" className="p-1.5 sm:p-2 text-foreground hover:text-blue-400 transition-colors">
-                  <Linkedin size={16} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="mailto:utkarsh@example.com" className="p-1.5 sm:p-2 text-foreground hover:text-blue-400 transition-colors">
-                  <Mail size={16} className="sm:w-4 sm:h-4" />
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+        <span className="text-[10px] uppercase tracking-widest text-lime-400 font-bold">Scroll</span>
+        <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center p-1">
+          <div className="w-1 h-2 bg-lime-400 rounded-full animate-bounce" />
         </div>
       </div>
     </section>
   )
 }
-
-export default Hero 

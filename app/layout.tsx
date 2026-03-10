@@ -1,6 +1,18 @@
 import type { Metadata } from 'next'
+import { Sora, Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
+import SmoothScroll from '@/components/SmoothScroll'
+
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-sora',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   title: 'Utkarsh Kumar Gupta - Full Stack Developer',
@@ -28,14 +40,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased font-body">
+      <body className={`${sora.variable} ${inter.variable} antialiased font-body`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          forcedTheme="dark"
           disableTransitionOnChange
         >
-          {children}
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>
