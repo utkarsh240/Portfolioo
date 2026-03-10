@@ -6,13 +6,13 @@ import Lenis from '@studio-freight/lenis'
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const lenis = new Lenis({
-            duration: 0.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            duration: 0.8,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Snappy ease out
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 2.0,
-            touchMultiplier: 2.5,
+            wheelMultiplier: 1.2, // Lower multiplier for more controlled, precise feel
+            touchMultiplier: 2.0,
         })
 
         function raf(time: number) {

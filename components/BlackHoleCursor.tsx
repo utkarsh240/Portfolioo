@@ -26,7 +26,17 @@ export default function BlackHoleCursor() {
             return document.querySelectorAll('h1, h2, h3, a, button, .project-card, .exp-timeline-card')
         }
 
-        const animate = () => {
+        let lastTime = 0;
+        const FPS = 30;
+        const interval = 1000 / FPS;
+
+        const animate = (time: number) => {
+            animationFrameId = requestAnimationFrame(animate)
+
+            const deltaTime = time - lastTime;
+            if (deltaTime < interval) return;
+            lastTime = time - (deltaTime % interval);
+
             const targets = getWarpTargets()
 
             const MAX_DISTANCE = 300 // Radius of the "black hole"
@@ -63,8 +73,6 @@ export default function BlackHoleCursor() {
                     }
                 }
             })
-
-            animationFrameId = requestAnimationFrame(animate)
         }
 
         animationFrameId = requestAnimationFrame(animate)
