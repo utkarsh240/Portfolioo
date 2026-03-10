@@ -2,60 +2,63 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Github, Video, FileText, Film } from 'lucide-react'
+import { Github, Video, FileText, MessageSquare } from 'lucide-react'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 
 const Projects = () => {
   const projects = [
     {
-      title: 'Screensend',
-      description: 'Full-stack screen recording & video sharing platform built with Next.js, Bunny.net & Arcjet. Features Better Auth, video uploads, sharing via link, privacy settings, AI transcripts, and more.',
-      technologies: ['Next.js', 'TypeScript', 'Bunny.net', 'Arcjet', 'Better Auth'],
-      category: 'Full Stack',
+      title: 'DecorAI – AI Architectural Visualization SaaS',
+      description:
+        'Full-stack AI SaaS that transforms 2D floor plans into photorealistic 3D renders using a dual-model pipeline with Claude for spatial reasoning and Gemini for image generation.',
+      technologies: ['React', 'TypeScript', 'Puter.js', 'Claude', 'Gemini'],
+      category: 'AI SaaS',
       icon: Video,
       color: 'text-blue-500',
       bgColor: 'bg-blue-500/10',
 
-      github: 'https://github.com/utkarsh240/screensend',
+      github: 'https://github.com/your-username/decorai',
       features: [
-        'Screen recording & video sharing',
-        'Privacy settings & link sharing',
-        'AI transcripts & Better Auth',
-        'Video upload with Bunny.net'
+        'Transforms 2D floor plans into photorealistic 3D renders',
+        'Serverless render workers with Puter.js and permanent file hosting',
+        'Persistent KV metadata storage and global community feed',
+        'Dual-model AI pipeline combining Claude and Gemini'
       ]
     },
     {
-      title: 'PDF Analysis',
-      description: 'Built a PDF-based question answering system using Streamlit, LangChain, OpenAI (GPT-4), and Qdrant for intelligent document analysis.',
-      technologies: ['Python', 'Streamlit', 'LangChain', 'OpenAI GPT-4', 'Qdrant'],
-      category: 'AI/ML',
-      icon: FileText,
-      color: 'text-green-500',
-      bgColor: 'bg-green-500/10',
+      title: 'TimeBox – Real-Time Ephemeral Chat System',
+      description:
+        'Privacy-first real-time chat system using WebSockets with Redis-backed pub/sub and strict two-user isolation per room.',
+      technologies: ['Next.js', 'Bun', 'Elysia', 'Redis', 'WebSockets'],
+      category: 'Realtime',
+      icon: MessageSquare,
+      color: 'text-emerald-500',
+      bgColor: 'bg-emerald-500/10',
 
-      github: 'https://github.com/utkarsh240/Pdf_analysis',
+      github: 'https://github.com/utkarsh240/TimeBox',
       features: [
-        'PDF document processing',
-        'Question answering with GPT-4',
-        'Vector search with Qdrant',
-        'Interactive Streamlit interface'
+        'WebSocket-based architecture with Redis pub/sub for sub-100ms delivery',
+        'Room-based communication with strict two-user isolation',
+        'Automatic 10-minute message expiration via Redis TTL',
+        'Zero message persistence for privacy-friendly data handling'
       ]
     },
     {
-      title: 'FilmFinder',
-      description: 'Developed a responsive movie discovery app using React.js, Tailwind CSS, and Vite, integrated with the TMDB API for real-time movie data.',
-      technologies: ['React.js', 'Tailwind CSS', 'Vite', 'TMDB API'],
-      category: 'Frontend',
-      icon: Film,
+      title: 'AI PDF Analysis System – RAG Pipeline',
+      description:
+        'Retrieval-Augmented Generation pipeline for semantic PDF analysis using LangChain, GPT-4, and Qdrant vector search, exposed via a Streamlit UI.',
+      technologies: ['Python', 'Streamlit', 'LangChain', 'GPT-4', 'Qdrant'],
+      category: 'RAG / LLM',
+      icon: FileText,
       color: 'text-purple-500',
       bgColor: 'bg-purple-500/10',
 
-      github: 'https://github.com/utkarsh240/FilmFinder',
+      github: 'https://github.com/utkarsh240/Pdf_analysis',
       features: [
-        'Movie discovery & search',
-        'Real-time data from TMDB API',
-        'Responsive design',
-        'Fast Vite build system'
+        'RAG pipeline with LangChain + Qdrant vector search',
+        'Handles 1,000+ page documents and 50,000+ embeddings',
+        'Semantic querying and AI-generated summaries',
+        'Reduces manual document analysis time significantly'
       ]
     }
   ]

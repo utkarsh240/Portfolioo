@@ -5,13 +5,24 @@ import { Briefcase, Users } from 'lucide-react'
 
 const experiences = [
   {
-    company: 'Ekaant',
-    role: 'Software Developer Intern',
-    period: 'May 2024 - July 2024',
-    description: 'Worked on scalable web applications using React.js, Tailwind CSS, TypeScript, Docker, and AWS. Collaborated with cross-functional teams to deliver robust solutions.',
+    company: 'Wipro Limited',
+    role: 'Software Developer Trainee',
+    period: 'Dec 2025 - Present',
+    description:
+      'Training in enterprise full-stack development with .NET (C#) and Angular, building scalable backend services and RESTful APIs following enterprise coding standards, Agile workflows, and CI/CD practices.',
     icon: Briefcase,
     color: 'text-blue-500',
     bgColor: 'bg-blue-500/10',
+  },
+  {
+    company: 'Ekaant',
+    role: 'Software Developer Intern',
+    period: 'May 2024 - July 2024',
+    description:
+      'Built reusable React components in TypeScript and Tailwind CSS for a platform with 1,000+ daily active users, optimized API integration to reduce page load time, and deployed Dockerized workloads to AWS EC2 and S3.',
+    icon: Briefcase,
+    color: 'text-purple-500',
+    bgColor: 'bg-purple-500/10',
   },
   {
     company: 'WebXstreet',
