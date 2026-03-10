@@ -112,29 +112,39 @@ export default function Skills() {
     <Section id="skills" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={containerRef}>
 
-        <div className="text-center mb-16">
+        <div className="mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-lime-400 font-medium tracking-wide mb-6">
             <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
             System Architecture
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold tracking-tight text-white mb-6">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-6">
             Technical <span className="text-lime-400">Arsenal.</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl">
             The core technologies and tools I leverage to build scalable, high-performance web applications and AI systems.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category) => {
+          {skillCategories.map((category, index) => {
             const Icon = categoryIcons[category.title] || Code2
+
+            // Bento-box styling: break symmetry based on category
+            const getCategorySpan = (idx: number) => {
+              switch (idx) {
+                case 1: return 'md:col-span-2 lg:col-span-2' // Web Dev
+                case 5: return 'md:col-span-2 lg:col-span-3' // Tools
+                default: return 'col-span-1' // Languages, Backend, DBs, AI/ML
+              }
+            }
+
             return (
               <div
                 key={category.title}
-                className="skill-card group bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 hover:border-lime-400/30 transition-colors duration-300 shadow-2xl shadow-black/50"
+                className={`skill-card group bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 hover:border-lime-400/30 transition-colors duration-300 shadow-2xl shadow-black/50 ${getCategorySpan(index)}`}
               >
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-lime-400 group-hover:border-lime-400/30 transition-colors">
+                  <div className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-lime-400 group-hover:border-lime-400/30 transition-colors shrink-0">
                     <Icon size={24} />
                   </div>
                   <h3 className="text-2xl font-bold text-white">{category.title}</h3>

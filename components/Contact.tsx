@@ -21,7 +21,7 @@ export default function Contact() {
   }
 
   return (
-    <Section id="contact" className="py-24 relative overflow-hidden">
+    <Section id="contact" className="pt-24 pb-8 relative overflow-hidden">
       {/* Background glow for contact section */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20"
@@ -31,15 +31,15 @@ export default function Contact() {
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
+        <div className="mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-lime-400 font-medium tracking-wide mb-6">
             <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
             Accepting New Projects
           </div>
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight text-white mb-6">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-6">
             Let's build something <span className="text-lime-400">together.</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl">
             Have an idea for a startup, a complex tool, or scaling your infrastructure? Let's discuss how we can bring it to life.
           </p>
         </div>
@@ -73,48 +73,48 @@ export default function Contact() {
 
           {/* Right Column: Form */}
           <div className="lg:col-span-3 w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 hover:border-lime-400/30 transition-colors duration-300">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label className="text-xs font-mono tracking-widest uppercase text-lime-400 ml-1">Full Name</label>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-mono tracking-widest uppercase text-lime-400 ml-1">Full Name</label>
                   <input
                     type="text"
                     placeholder="John Doe"
                     required
                     suppressHydrationWarning
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300"
+                    className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300"
                   />
                 </div>
-                <div className="flex flex-col gap-3">
-                  <label className="text-xs font-mono tracking-widest uppercase text-lime-400 ml-1">Email *</label>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-mono tracking-widest uppercase text-lime-400 ml-1">Email *</label>
                   <input
                     type="email"
                     placeholder="john@example.com"
                     required
                     suppressHydrationWarning
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300"
+                    className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300"
                   />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3">
-                <label className="text-xs font-mono tracking-widest uppercase text-lime-400 ml-1">Company / Project Link (Optional)</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[10px] font-mono tracking-widest uppercase text-lime-400 ml-1">Company / Project Link (Optional)</label>
                 <input
                   type="text"
                   placeholder="https://..."
                   suppressHydrationWarning
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300"
                 />
               </div>
 
-              <div className="flex flex-col gap-3">
-                <label className="text-xs font-mono tracking-widest uppercase text-lime-400 ml-1">Message *</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[10px] font-mono tracking-widest uppercase text-lime-400 ml-1">Message *</label>
                 <textarea
                   placeholder="How can I help you?"
                   required
-                  rows={5}
+                  rows={4}
                   suppressHydrationWarning
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300 resize-none"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-lime-400 transition-all duration-300 resize-none"
                 />
               </div>
 

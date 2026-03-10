@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { gsap } from 'gsap'
+import { motion } from 'framer-motion'
 import { ArrowRight, Code2, Terminal } from 'lucide-react'
 
 export default function Hero() {
@@ -61,9 +62,9 @@ export default function Hero() {
               Available for work
             </div>
 
-            <h1 className="hero-stagger text-5xl md:text-7xl lg:text-[5.5rem] font-heading font-bold tracking-tight text-white leading-[1.1] mb-6">
+            <h1 className="hero-stagger text-5xl md:text-7xl lg:text-[5.5rem] font-heading font-bold tracking-tight text-white leading-[1.1] mb-6 drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]">
               Utkarsh<br />
-              <span className="text-gray-500">Gupta</span>
+              <span className="text-lime-400 drop-shadow-[0_0_30px_rgba(163,230,53,0.6)]">Gupta</span>
             </h1>
 
             <div className="hero-stagger flex items-center gap-4 mb-10 max-w-xl">
@@ -153,11 +154,31 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Floating Crazy Neon Geometry */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Giant Top Left Glow */}
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-lime-400/20 blur-[150px] rounded-full mix-blend-screen animate-pulse" style={{ animationDuration: '4s' }} />
+
+        {/* Floating Orb 1 */}
+        <motion.div
+          animate={{ y: [0, -30, 0], x: [0, 20, 0], rotate: [0, 180, 360] }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+          className="absolute top-[30%] left-[10%] w-32 h-32 rounded-full border border-lime-400/30 shadow-[0_0_50px_rgba(163,230,53,0.3)] bg-gradient-to-tr from-lime-400/10 to-transparent backdrop-blur-3xl"
+        />
+
+        {/* Floating Orb 2 */}
+        <motion.div
+          animate={{ y: [0, 40, 0], x: [0, -30, 0], rotate: [360, 180, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          className="absolute bottom-[20%] right-[15%] w-48 h-48 border border-white/10 rounded-full shadow-[0_0_80px_rgba(255,255,255,0.05)] bg-gradient-to-br from-white/5 to-transparent backdrop-blur-xl"
+        />
+      </div>
+
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-        <span className="text-[10px] uppercase tracking-widest text-lime-400 font-bold">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center p-1">
-          <div className="w-1 h-2 bg-lime-400 rounded-full animate-bounce" />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-80 z-20">
+        <span className="text-[10px] uppercase tracking-widest text-lime-400 font-bold drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]">Scroll</span>
+        <div className="w-5 h-8 rounded-full border border-lime-400/50 flex justify-center p-1 shadow-[0_0_15px_rgba(163,230,53,0.3)] bg-black/50 backdrop-blur-md">
+          <div className="w-1 h-3 bg-lime-400 rounded-full animate-bounce shadow-[0_0_10px_rgba(163,230,53,1)]" />
         </div>
       </div>
     </section>

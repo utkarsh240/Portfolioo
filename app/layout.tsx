@@ -3,6 +3,8 @@ import { Sora, Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import SmoothScroll from '@/components/SmoothScroll'
+import CustomCursor from '@/components/CustomCursor'
+import BackgroundStars from '@/components/BackgroundStars'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -47,6 +49,8 @@ export default function RootLayout({
           forcedTheme="dark"
           disableTransitionOnChange
         >
+          <BackgroundStars />
+          <CustomCursor />
           <SmoothScroll>
             {children}
           </SmoothScroll>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Menu, X, Coffee } from 'lucide-react'
+import Clock from './Clock'
 
 const navItems = [
   { name: 'Home', href: '#home', id: 'home' },
@@ -61,21 +62,23 @@ export default function Navbar() {
         style={{ backgroundColor: navbarBg }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-white/10 transition-colors duration-300"
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+
+          {/* Logo (Left, takes up equivalent space) */}
           <div
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex-1 flex justify-start items-center gap-3 cursor-pointer group"
             onClick={() => scrollToSection('#home')}
           >
-            {/* Minimal Logo Icon */}
             <div className="w-8 h-8 rounded-lg border border-white/20 flex items-center justify-center bg-white/5 group-hover:border-lime-400/50 transition-colors">
               <span className="font-heading font-bold text-white group-hover:text-lime-400 transition-colors">UG</span>
             </div>
-            <span className="text-xl font-heading font-bold tracking-tight text-white group-hover:text-gray-300 transition-colors">
+            <span className="text-lg md:text-xl font-heading font-bold tracking-tight text-white group-hover:text-gray-300 transition-colors whitespace-nowrap hidden sm:block">
               Utkarsh Gupta
             </span>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Nav Links (Center, perfectly centered) */}
+          <div className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.name}
@@ -89,22 +92,26 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center space-x-6">
+          {/* Buttons, Clock & Mobile Toggle (Right, takes up equivalent space) */}
+          <div className="flex-1 flex justify-end items-center space-x-6">
+            <Clock />
+
             <button
               onClick={() => scrollToSection('#contact')}
-              className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-white hover:bg-white/10 hover:border-white/20 transition-all active:scale-95"
+              className="hidden sm:inline-flex px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-white hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 whitespace-nowrap"
             >
               Let's Talk
             </button>
-          </div>
 
-          <div className="md:hidden flex items-center">
-            <button
-              className="text-white p-2"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile Menu Toggle */}
+            <div className="lg:hidden flex items-center">
+              <button
+                className="text-white p-2"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>

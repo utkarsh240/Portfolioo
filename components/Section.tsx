@@ -20,15 +20,16 @@ export default function Section({ id, className = '', children }: SectionProps) 
         if (!el) return
 
         gsap.fromTo(el,
-            { opacity: 0, y: 50 },
+            { opacity: 0, y: 100, scale: 0.95 },
             {
                 opacity: 1,
                 y: 0,
-                duration: 1,
-                ease: 'power3.out',
+                scale: 1,
+                duration: 1.2,
+                ease: 'expo.out',
                 scrollTrigger: {
                     trigger: el,
-                    start: 'top 80%',
+                    start: 'top 85%',
                 }
             }
         )

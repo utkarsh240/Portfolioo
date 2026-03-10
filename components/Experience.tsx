@@ -98,11 +98,11 @@ export default function Experience() {
   return (
     <Section id="experience" className="pt-24 pb-12">
       <div className="mb-16">
-        <h2 className="text-3xl md:text-4xl font-heading font-semibold tracking-tight text-foreground dark:text-white mb-4">
-          Professional Experience
+        <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
+          Professional <span className="text-lime-400">Experience</span>
         </h2>
-        <p className="text-muted-foreground text-base max-w-2xl">
-          My professional journey in software development.
+        <p className="text-gray-400 text-lg max-w-2xl">
+          My journey and technical contributions across different roles.
         </p>
       </div>
 

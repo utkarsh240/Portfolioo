@@ -8,6 +8,7 @@ import Experience from '@/components/Experience'
 import Projects from '@/components/Projects'
 import Skills from '@/components/Skills'
 import GitHubContributions from '@/components/GitHubContributions'
+import NeonPong from '@/components/NeonPong'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
@@ -26,6 +27,7 @@ export default function Home() {
       <Education />
       <Skills />
       <GitHubContributions />
+      <NeonPong />
       <Contact />
       <Footer />
     </motion.main>

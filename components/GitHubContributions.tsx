@@ -114,12 +114,14 @@ export default function GitHubContributions() {
 
   return (
     <Section id="github" className="py-24">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
-        <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-8 text-center">
-          Development <span className="text-lime-400">Activity</span>
-        </h2>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="mb-16">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
+            Development <span className="text-lime-400">Activity</span>
+          </h2>
+        </div>
 
-        <div className="w-full max-w-4xl bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 hover:-translate-y-2 hover:border-lime-400 hover:shadow-[0_20px_40px_-15px_rgba(163,230,53,0.1)] transition-all duration-300">
+        <div className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 hover:-translate-y-2 hover:border-lime-400 hover:shadow-[0_20px_40px_-15px_rgba(163,230,53,0.1)] transition-all duration-300">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-12 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center">
               <Github className="text-white" size={24} />

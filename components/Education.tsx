@@ -83,10 +83,10 @@ export default function Education() {
   return (
     <Section id="education" className="pt-12 pb-24">
       <div className="mb-16">
-        <h2 className="text-3xl md:text-4xl font-heading font-semibold tracking-tight text-foreground dark:text-white mb-4">
-          Educational Background
+        <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
+          Educational <span className="text-lime-400">Background</span>
         </h2>
-        <p className="text-muted-foreground text-base max-w-2xl">
+        <p className="text-gray-400 text-lg max-w-2xl">
           My academic foundation and qualifications.
         </p>
       </div>

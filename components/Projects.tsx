@@ -114,7 +114,7 @@ export default function Projects() {
 
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <h2 className="text-4xl lg:text-5xl font-heading font-bold tracking-tight text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
               Featured <span className="text-lime-400">Projects</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl">

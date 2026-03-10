@@ -1,78 +1,60 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Heart, Github, Linkedin, Twitter } from 'lucide-react'
 
-const Footer = () => {
+export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-muted/30 border-t border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="flex flex-col items-center space-y-4 sm:space-y-6">
+    <footer className="w-full bg-[#0b0b0c] border-t border-white/5 relative z-10 pt-8 pb-8 mt-4">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
+
+        <div className="flex flex-col md:flex-row items-center justify-between w-full gap-6">
+
+          {/* Copyright */}
+          <div className="text-center md:text-left">
+            <p className="text-sm font-medium text-gray-500">
+              © {currentYear} Utkarsh Gupta. All rights reserved.
+            </p>
+          </div>
+
           {/* Made with love */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex items-center space-x-2 text-muted-foreground"
-          >
-            <span className="text-xs sm:text-sm">Made with</span>
-            <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 fill-current" />
-            <span className="text-xs sm:text-sm">by Utkarsh Kumar Gupta</span>
-          </motion.div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-gray-500">Crafted with</span>
+            <Heart className="w-3 h-3 text-lime-400 fill-lime-400" />
+            <span className="text-xs font-medium text-gray-500">in India</span>
+          </div>
 
           {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center space-x-3 sm:space-x-4"
-          >
+          <div className="flex items-center gap-4">
             <a
               href="https://github.com/utkarsh240"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 sm:p-2 rounded-full bg-muted hover:bg-green-500/20 transition-all duration-300 group"
+              className="group p-2"
             >
-              <Github className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-green-500 transition-colors duration-300" />
+              <Github className="w-5 h-5 text-gray-400 group-hover:text-lime-400 transition-colors" />
             </a>
             <a
               href="https://linkedin.com/in/utkarsh-gupta-53647b217/"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 sm:p-2 rounded-full bg-muted hover:bg-blue-500/20 transition-all duration-300 group"
+              className="group p-2"
             >
-              <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-300" />
+              <Linkedin className="w-5 h-5 text-gray-400 group-hover:text-lime-400 transition-colors" />
             </a>
             <a
               href="https://x.com/utkarshh_24?t=DlWFEbvPtBUBHlG3bCnqkg&s=09"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 sm:p-2 rounded-full bg-muted hover:bg-purple-500/20 transition-all duration-300 group"
+              className="group p-2"
             >
-              <Twitter className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-purple-500 transition-colors duration-300" />
+              <Twitter className="w-5 h-5 text-gray-400 group-hover:text-lime-400 transition-colors" />
             </a>
-          </motion.div>
+          </div>
 
-          {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center"
-          >
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              © {currentYear} Utkarsh Kumar Gupta. All rights reserved.
-            </p>
-          </motion.div>
         </div>
       </div>
     </footer>
   )
 }
-
-export default Footer 
