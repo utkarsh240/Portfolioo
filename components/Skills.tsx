@@ -1,132 +1,169 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import Section from './Section'
+import { Code2, Globe, Server, Database, BrainCircuit, Wrench } from 'lucide-react'
 
-const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Languages',
-      skills: [
-        { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', color: 'bg-red-500' },
-        { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', color: 'bg-yellow-500' },
-        { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', color: 'bg-blue-500' },
-        { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-blue-500' },
-        { name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg', color: 'bg-purple-500' },
-      ]
-    },
-    {
-      title: 'Web Development',
-      skills: [
-        { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', color: 'bg-orange-500' },
-        { name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', color: 'bg-blue-500' },
-        { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: 'bg-blue-500' },
-        { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: 'bg-black' },
-        { name: 'Angular', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg', color: 'bg-red-600' },
-        { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', color: 'bg-blue-500' },
-        { name: 'Streamlit', icon: 'https://streamlit.io/images/brand/streamlit-mark-color.png', color: 'bg-red-500' }
-      ]
-    },
-    {
-      title: 'Backend & APIs',
-      skills: [
-        { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: 'bg-green-500' },
-        { name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', color: 'bg-gray-500' },
-        { name: 'Bun', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg', color: 'bg-yellow-600' },
-        { name: '.NET', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg', color: 'bg-indigo-600' },
-        { name: 'GraphQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg', color: 'bg-pink-500' },
-      ]
-    },
-    {
-      title: 'Databases',
-      skills: [
-        { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: 'bg-green-500' },
-        { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', color: 'bg-blue-500' },
-        { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', color: 'bg-sky-700' },
-        { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg', color: 'bg-red-600' },
-        { name: 'Qdrant (Vector DB)', icon: 'https://qdrant.tech/favicon.ico', color: 'bg-purple-500' }
-      ]
-    },
-    {
-      title: 'AI/ML & APIs',
-      skills: [
-        { name: 'OpenAI GPT-4', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg', color: 'bg-green-500' },
-        { name: 'LangChain', icon: '/logos/langchain.svg', color: 'bg-blue-500' },
-        { name: 'LangGraph', icon: '/logos/langgraph.svg', color: 'bg-blue-500' }
-      ]
-    },
-    {
-      title: 'Tools/Platforms',
-      skills: [
-        { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', color: 'bg-orange-500' },
-        { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', color: 'bg-black' },
-        { name: 'Postman', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg', color: 'bg-orange-500' },
-        { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', color: 'bg-blue-500' },
-        { name: 'AWS (EC2, S3)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg', color: 'bg-yellow-500' },
-        { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg', color: 'bg-blue-600' },
-        { name: 'Vercel', icon: 'https://assets.vercel.com/image/upload/q_auto/front/assets/design/vercel-triangle-black.svg', color: 'bg-black' },
-        { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg', color: 'bg-purple-500' },
-        { name: 'Bunny.net', icon: 'https://bunny.net/favicon.ico', color: 'bg-orange-500' },
-        { name: 'Better Auth', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg', color: 'bg-orange-500' }
-      ]
-    }
-  ]
+// Map categories to icons
+const categoryIcons: Record<string, React.ElementType> = {
+  'Languages': Code2,
+  'Web Development': Globe,
+  'Backend & APIs': Server,
+  'Databases': Database,
+  'AI/ML & APIs': BrainCircuit,
+  'Tools/Platforms': Wrench,
+}
+
+const skillCategories = [
+  {
+    title: 'Languages',
+    skills: [
+      { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+      { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+      { name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
+    ]
+  },
+  {
+    title: 'Web Development',
+    skills: [
+      { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+      { name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+      { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+      { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', invert: true },
+      { name: 'Angular', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg' },
+      { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+      { name: 'Streamlit', icon: 'https://streamlit.io/images/brand/streamlit-mark-color.png' }
+    ]
+  },
+  {
+    title: 'Backend & APIs',
+    skills: [
+      { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+      { name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', invert: true },
+      { name: 'Bun', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg' },
+      { name: '.NET', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg' },
+      { name: 'GraphQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
+    ]
+  },
+  {
+    title: 'Databases',
+    skills: [
+      { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+      { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+      { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+      { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+      { name: 'Qdrant', icon: 'https://qdrant.tech/favicon.ico' }
+    ]
+  },
+  {
+    title: 'AI/ML & APIs',
+    skills: [
+      { name: 'OpenAI GPT-4', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg', invert: true },
+      { name: 'LangChain', icon: '/logos/langchain.svg' },
+      { name: 'LangGraph', icon: '/logos/langgraph.svg' }
+    ]
+  },
+  {
+    title: 'Tools/Platforms',
+    skills: [
+      { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+      { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', invert: true },
+      { name: 'Postman', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
+      { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+      { name: 'AWS (EC2, S3)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', invert: true },
+      { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg' },
+      { name: 'Vercel', icon: 'https://assets.vercel.com/image/upload/q_auto/front/assets/design/vercel-triangle-black.svg', invert: true },
+      { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
+      { name: 'Bunny.net', icon: 'https://bunny.net/favicon.ico' },
+      { name: 'Better Auth', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' }
+    ]
+  }
+]
+
+export default function Skills() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.skill-card',
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 80%',
+          },
+        }
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section id="skills" className="py-8 px-4 sm:px-6 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-xl md:text-2xl font-bold text-foreground mb-6 text-left"
-        >
-          Tech <span className="gradient-text">Skills</span>
-        </motion.h2>
-        
-        <div className="space-y-6 sm:space-y-8">
-          {skillCategories.map((category, index) => (
-            <motion.div 
-              key={category.title} 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="space-y-3 sm:space-y-4"
-            >
-              {/* Category Header */}
-              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground">{category.title}</h3>
-              
-              {/* Skills List */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {category.skills.map((skill) => (
-                  <motion.div
-                    key={skill.name}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary text-secondary-foreground rounded-full border border-border hover:border-blue-500/50 transition-all duration-300"
-                  >
-                    <div className="flex-shrink-0">
+    <Section id="skills" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6 relative z-10" ref={containerRef}>
+
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-lime-400 font-medium tracking-wide mb-6">
+            <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
+            System Architecture
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold tracking-tight text-white mb-6">
+            Technical <span className="text-lime-400">Arsenal.</span>
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            The core technologies and tools I leverage to build scalable, high-performance web applications and AI systems.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((category) => {
+            const Icon = categoryIcons[category.title] || Code2
+            return (
+              <div
+                key={category.title}
+                className="skill-card group bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 hover:border-lime-400/30 transition-colors duration-300 shadow-2xl shadow-black/50"
+              >
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-lime-400 group-hover:border-lime-400/30 transition-colors">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white">{category.title}</h3>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  {category.skills.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="flex items-center gap-2.5 px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl hover:border-lime-400/50 hover:bg-lime-400/5 transition-all duration-300 group/skill"
+                    >
                       <img
                         src={skill.icon}
                         alt={`${skill.name} logo`}
-                        width={20}
-                        height={20}
+                        className={`w-5 h-5 object-contain opacity-80 group-hover/skill:opacity-100 transition-opacity ${skill.invert ? 'invert' : ''}`}
                         loading="lazy"
                         decoding="async"
-                        className="h-4 w-4 object-contain sm:h-5 sm:w-5"
                       />
+                      <span className="text-sm font-medium text-gray-300 group-hover/skill:text-lime-400 transition-colors">
+                        {skill.name}
+                      </span>
                     </div>
-                    <span className="font-medium text-xs sm:text-sm">{skill.name}</span>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </motion.div>
-          ))}
+            )
+          })}
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
-
-export default Skills 
