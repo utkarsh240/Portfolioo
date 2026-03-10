@@ -12,7 +12,7 @@ export default function Preloader() {
         document.body.style.overflow = 'hidden'
 
         // Fake progress sequence
-        const duration = 2000 // 2 seconds total loading sequence
+        const duration = 800 // 0.8 seconds total loading sequence
         const interval = 20 // update every 20ms
         const steps = duration / interval
         let currentStep = 0
@@ -32,7 +32,7 @@ export default function Preloader() {
                 setTimeout(() => {
                     setIsLoading(false)
                     document.body.style.overflow = '' // Restore scroll
-                }, 300) // slight pause at 100%
+                }, 100) // slight pause at 100%
             }
         }, interval)
 
