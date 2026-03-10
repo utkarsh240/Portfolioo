@@ -4,7 +4,11 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import SmoothScroll from '@/components/SmoothScroll'
 import CustomCursor from '@/components/CustomCursor'
-import BackgroundStars from '@/components/BackgroundStars'
+import NetworkBackground from '@/components/NetworkBackground'
+import Preloader from '@/components/Preloader'
+import MatrixRain from '@/components/MatrixRain'
+import QuantumDataStream from '@/components/QuantumDataStream'
+import BlackHoleCursor from '@/components/BlackHoleCursor'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -49,7 +53,11 @@ export default function RootLayout({
           forcedTheme="dark"
           disableTransitionOnChange
         >
-          <BackgroundStars />
+          <NetworkBackground />
+          <Preloader />
+          <MatrixRain />
+          <QuantumDataStream />
+          <BlackHoleCursor />
           <CustomCursor />
           <SmoothScroll>
             {children}

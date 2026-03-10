@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Menu, X, Coffee } from 'lucide-react'
 import Clock from './Clock'
+import Magnetic from './Magnetic'
 
 const navItems = [
   { name: 'Home', href: '#home', id: 'home' },
@@ -18,11 +19,23 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string>('home')
   const { scrollY } = useScroll()
 
-  // Make the navbar slightly transparent at top, then blur more on scroll
+  // Make the navbar slightly transparent at top, then blur more and glow on scroll
   const navbarBg = useTransform(
     scrollY,
     [0, 50],
-    ['rgba(11, 11, 12, 0.4)', 'rgba(11, 11, 12, 0.8)']
+    ['rgba(255, 255, 255, 0.03)', 'rgba(11, 11, 12, 0.85)']
+  )
+
+  const navbarBorder = useTransform(
+    scrollY,
+    [0, 50],
+    ['rgba(255, 255, 255, 0.05)', 'rgba(163, 230, 53, 0.3)']
+  )
+
+  const navbarShadow = useTransform(
+    scrollY,
+    [0, 50],
+    ['0 4px 30px rgba(0, 0, 0, 0.1)', '0 10px 40px -10px rgba(163, 230, 53, 0.25)']
   )
 
   useEffect(() => {
@@ -58,20 +71,26 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        style={{ backgroundColor: navbarBg }}
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-white/10 transition-colors duration-300"
-      >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+      <div className="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
+        <motion.nav
+          style={{
+            backgroundColor: navbarBg,
+            borderColor: navbarBorder,
+            boxShadow: navbarShadow
+          }}
+          className="pointer-events-auto backdrop-blur-2xl border rounded-full px-4 md:px-6 h-16 w-full max-w-5xl flex items-center justify-between relative transition-colors duration-300"
+        >
 
           {/* Logo (Left, takes up equivalent space) */}
           <div
             className="flex-1 flex justify-start items-center gap-3 cursor-pointer group"
             onClick={() => scrollToSection('#home')}
           >
-            <div className="w-8 h-8 rounded-lg border border-white/20 flex items-center justify-center bg-white/5 group-hover:border-lime-400/50 transition-colors">
-              <span className="font-heading font-bold text-white group-hover:text-lime-400 transition-colors">UG</span>
-            </div>
+            <Magnetic strength={15}>
+              <div className="w-8 h-8 rounded-lg border border-white/20 flex items-center justify-center bg-white/5 group-hover:border-lime-400/50 transition-colors">
+                <span className="font-heading font-bold text-white group-hover:text-lime-400 transition-colors">UG</span>
+              </div>
+            </Magnetic>
             <span className="text-lg md:text-xl font-heading font-bold tracking-tight text-white group-hover:text-gray-300 transition-colors whitespace-nowrap hidden sm:block">
               Utkarsh Gupta
             </span>
@@ -96,12 +115,14 @@ export default function Navbar() {
           <div className="flex-1 flex justify-end items-center space-x-6">
             <Clock />
 
-            <button
-              onClick={() => scrollToSection('#contact')}
-              className="hidden sm:inline-flex px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-white hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 whitespace-nowrap"
-            >
-              Let's Talk
-            </button>
+            <Magnetic strength={20}>
+              <button
+                onClick={() => scrollToSection('#contact')}
+                className="hidden sm:inline-flex px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-white hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 whitespace-nowrap"
+              >
+                Let's Talk
+              </button>
+            </Magnetic>
 
             {/* Mobile Menu Toggle */}
             <div className="lg:hidden flex items-center">
@@ -113,8 +134,8 @@ export default function Navbar() {
               </button>
             </div>
           </div>
-        </div>
-      </motion.nav>
+        </motion.nav>
+      </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>

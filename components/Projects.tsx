@@ -4,6 +4,8 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { Github, ExternalLink, Video, MessageSquare, FileText } from 'lucide-react'
 import Section from './Section'
+import ProjectCard3D from './ProjectCard3D'
+import ScrambleText from './ScrambleText'
 
 const projects = [
   {
@@ -61,51 +63,7 @@ export default function Projects() {
   }, [])
 
   const renderCard = (project: any) => (
-    <div
-      key={project.title}
-      className="project-card group flex flex-col bg-white/5 border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-lime-400 hover:shadow-[0_20px_40px_-15px_rgba(163,230,53,0.1)]"
-    >
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-lime-400/50 transition-colors">
-            <project.icon className="text-white group-hover:text-lime-400 transition-colors" size={20} />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-white leading-tight mb-1 line-clamp-2">
-              {project.title}
-            </h3>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          {project.github && project.github !== '#' && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-white/10 transition-colors border border-white/5">
-              <Github size={16} className="text-gray-400 hover:text-white" />
-            </a>
-          )}
-          {project.demo && project.demo !== '#' && (
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-white/10 transition-colors border border-white/5">
-              <ExternalLink size={16} className="text-gray-400 hover:text-white" />
-            </a>
-          )}
-        </div>
-      </div>
-
-      <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-        {project.description}
-      </p>
-
-      <div className="flex flex-wrap gap-2 mt-auto">
-        {project.technologies.map((tech: string) => (
-          <span
-            key={tech}
-            className="px-2 py-1 text-[10px] uppercase font-mono tracking-wider text-gray-400 border border-white/10 rounded bg-white/5"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-    </div>
+    <ProjectCard3D key={project.title} project={project} />
   )
 
   return (
@@ -115,7 +73,7 @@ export default function Projects() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
             <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
-              Featured <span className="text-lime-400">Projects</span>
+              <ScrambleText text="Featured" /> <span className="text-lime-400">Projects</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl">
               Here are some of my recent projects where I've combined modern web technologies with AI and scalable system design.

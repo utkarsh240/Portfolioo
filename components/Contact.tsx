@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Send, Mail, MapPin, Code2 } from 'lucide-react'
 import Section from './Section'
+import ScrambleText from './ScrambleText'
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -36,8 +37,8 @@ export default function Contact() {
             <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
             Accepting New Projects
           </div>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-6">
-            Let's build something <span className="text-lime-400">together.</span>
+          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
+            <ScrambleText text="Let's" /> <span className="text-lime-400">Talk</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl">
             Have an idea for a startup, a complex tool, or scaling your infrastructure? Let's discuss how we can bring it to life.

@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { Briefcase, Users } from 'lucide-react'
 import Section from './Section'
 import Image from 'next/image'
+import ScrambleText from './ScrambleText'
 
 const experiences = [
   {
@@ -38,19 +39,18 @@ export default function Experience() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Line animation
+      // Neon line pouring animation
       gsap.fromTo(
-        '.exp-timeline-line',
+        '.exp-timeline-progress',
         { scaleY: 0 },
         {
           scaleY: 1,
-          duration: 1.5,
-          ease: 'power3.inOut',
+          ease: 'none',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'top 70%',
-            end: 'bottom 80%',
-            scrub: 1,
+            start: 'top 50%',
+            end: 'bottom 50%',
+            scrub: 0.5,
           },
         }
       )
@@ -73,19 +73,20 @@ export default function Experience() {
         )
       })
 
-      // Dots animation
+      // Dots lighting up animation
       gsap.utils.toArray('.exp-timeline-dot').forEach((dot: any) => {
         gsap.fromTo(
           dot,
-          { opacity: 0, scale: 0 },
+          { backgroundColor: 'rgba(255,255,255,0.1)', boxShadow: 'none', scale: 0.8 },
           {
-            opacity: 1,
+            backgroundColor: 'rgba(163,230,53,1)',
+            boxShadow: '0 0 20px rgba(163,230,53,0.8)',
             scale: 1,
-            duration: 0.4,
-            ease: 'back.out(2)',
+            duration: 0.3,
             scrollTrigger: {
               trigger: dot,
-              start: 'top 85%',
+              start: 'top 50%',
+              toggleActions: 'play none none reverse'
             },
           }
         )
@@ -99,7 +100,7 @@ export default function Experience() {
     <Section id="experience" className="pt-24 pb-12">
       <div className="mb-16">
         <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
-          Professional <span className="text-lime-400">Experience</span>
+          <ScrambleText text="Professional" /> <span className="text-lime-400">Experience</span>
         </h2>
         <p className="text-gray-400 text-lg max-w-2xl">
           My journey and technical contributions across different roles.
@@ -107,14 +108,16 @@ export default function Experience() {
       </div>
 
       <div ref={containerRef} className="relative max-w-4xl mx-auto">
-        {/* The Vertical Line */}
-        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-black/10 dark:bg-white/10 origin-top exp-timeline-line" />
+        {/* Background Static Line */}
+        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-[2px] bg-white/5" />
+        {/* Neon Progress Line */}
+        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-[2px] bg-lime-400 origin-top exp-timeline-progress shadow-[0_0_15px_rgba(163,230,53,0.8)] z-0" />
 
         <div className="space-y-12">
           {experiences.map((item, index) => (
             <div key={index} className="relative pl-12 md:pl-24">
               {/* Timeline Dot */}
-              <div className={`exp-timeline-dot absolute left-4 md:left-8 top-6 -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br ${item.gradient} shadow-[0_0_15px_rgba(255,255,255,0.2)] border-2 border-black z-10`} />
+              <div className="exp-timeline-dot absolute left-4 md:left-8 top-6 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#0b0b0c] z-10" />
 
               {/* Timeline Card */}
               <div className="exp-timeline-card group relative bg-black/5 dark:bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:bg-black/10 dark:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1">

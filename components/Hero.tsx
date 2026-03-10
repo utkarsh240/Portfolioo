@@ -5,6 +5,9 @@ import Image from 'next/image'
 import { gsap } from 'gsap'
 import { motion } from 'framer-motion'
 import { ArrowRight, Code2, Terminal } from 'lucide-react'
+import GlitchText from './GlitchText'
+import Magnetic from './Magnetic'
+import LiquidImage from './LiquidImage'
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -69,9 +72,16 @@ export default function Hero() {
 
             <div className="hero-stagger flex items-center gap-4 mb-10 max-w-xl">
               <div className="w-10 h-[2px] bg-lime-400 shrink-0" />
-              <p className="text-gray-300 text-lg md:text-xl font-medium tracking-wide">
-                Full Stack Developer building modern web applications and AI-powered tools.
-                I specialize in creating beautiful, highly animated, and fast experiences.
+              <p className="text-gray-300 text-lg md:text-xl font-medium tracking-wide leading-relaxed">
+                <GlitchText
+                  text="Full Stack Developer building modern web applications and AI-powered tools."
+                  speed={30}
+                  delay={2500}
+                />
+                <br className="hidden md:block" />
+                <span className="opacity-80 mt-2 block font-sans">
+                  I specialize in creating beautiful, highly animated, and fast experiences.
+                </span>
               </p>
             </div>
 
@@ -92,22 +102,26 @@ export default function Hero() {
             </div>
 
             <div className="hero-stagger flex flex-wrap gap-5">
-              <a
-                href="#projects"
-                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-lime-400 text-black rounded-lg font-bold transition-transform hover:scale-105 active:scale-95"
-              >
-                View Projects
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-              </a>
+              <Magnetic strength={30}>
+                <a
+                  href="#projects"
+                  className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-lime-400 text-black rounded-lg font-bold transition-transform hover:scale-105 active:scale-95"
+                >
+                  View Projects
+                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                </a>
+              </Magnetic>
 
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center px-8 py-4 bg-transparent text-white border border-white/20 rounded-lg font-medium transition-all hover:bg-white/5 hover:border-white/40 active:scale-95"
-              >
-                Download Resume
-              </a>
+              <Magnetic strength={30}>
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center px-8 py-4 bg-transparent text-white border border-white/20 rounded-lg font-medium transition-all hover:bg-white/5 hover:border-white/40 active:scale-95"
+                >
+                  Download Resume
+                </a>
+              </Magnetic>
             </div>
           </div>
 
@@ -122,11 +136,11 @@ export default function Hero() {
             />
 
             {/* Subtle Animated Rings */}
-            <div className="hero-ring-1 absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full border border-white/5 border-t-lime-400/20" />
-            <div className="hero-ring-2 absolute w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full border border-white/5 border-b-lime-400/20" />
-            <div className="absolute w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full border border-white/5" />
+            <div className="hero-ring-1 absolute w-[280px] h-[280px] md:w-[600px] md:h-[600px] rounded-full border border-white/5 border-t-lime-400/20" />
+            <div className="hero-ring-2 absolute w-[240px] h-[240px] md:w-[500px] md:h-[500px] rounded-full border border-white/5 border-b-lime-400/20" />
+            <div className="absolute w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-full border border-white/5" />
 
-            <div className="relative w-72 h-72 md:w-[400px] md:h-[400px] flex items-center justify-center">
+            <div className="relative w-64 h-64 md:w-[400px] md:h-[400px] flex items-center justify-center">
               <div className="hero-image relative w-[80%] h-[80%] rounded-full overflow-hidden border border-white/10 z-10 bg-black shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
                 <div className="absolute bottom-4 left-0 right-0 z-20 text-center opacity-30">
@@ -138,14 +152,10 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-[#0b0b0c] flex items-center justify-center -z-10">
                   <div className="w-full h-full opacity-20" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
                 </div>
-                <Image
+                <LiquidImage
                   src="/dp.webp"
                   alt="Utkarsh Gupta"
-                  fill
-                  className="object-cover relative z-0 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
+                  className="w-full h-full mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
                 />
               </div>
             </div>
@@ -163,14 +173,14 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, -30, 0], x: [0, 20, 0], rotate: [0, 180, 360] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-[30%] left-[10%] w-32 h-32 rounded-full border border-lime-400/30 shadow-[0_0_50px_rgba(163,230,53,0.3)] bg-gradient-to-tr from-lime-400/10 to-transparent backdrop-blur-3xl"
+          className="absolute top-[30%] left-[-5%] sm:left-[10%] w-32 h-32 rounded-full border border-lime-400/30 shadow-[0_0_60px_rgba(163,230,53,0.4)] bg-gradient-to-tr from-lime-400/20 to-transparent backdrop-blur-3xl"
         />
 
         {/* Floating Orb 2 */}
         <motion.div
           animate={{ y: [0, 40, 0], x: [0, -30, 0], rotate: [360, 180, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          className="absolute bottom-[20%] right-[15%] w-48 h-48 border border-white/10 rounded-full shadow-[0_0_80px_rgba(255,255,255,0.05)] bg-gradient-to-br from-white/5 to-transparent backdrop-blur-xl"
+          className="absolute bottom-[10%] right-[-10%] sm:right-[15%] w-48 h-48 border border-white/10 rounded-full shadow-[0_0_100px_rgba(255,255,255,0.1)] bg-gradient-to-br from-white/10 to-transparent backdrop-blur-xl"
         />
       </div>
 

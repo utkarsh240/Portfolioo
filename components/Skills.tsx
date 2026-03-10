@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import Section from './Section'
+import ScrambleText from './ScrambleText'
 import { Code2, Globe, Server, Database, BrainCircuit, Wrench } from 'lucide-react'
 
 // Map categories to icons
@@ -117,8 +118,8 @@ export default function Skills() {
             <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
             System Architecture
           </div>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-6">
-            Technical <span className="text-lime-400">Arsenal.</span>
+          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
+            <ScrambleText text="Technical" /> <span className="text-lime-400">Arsenal</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl">
             The core technologies and tools I leverage to build scalable, high-performance web applications and AI systems.
