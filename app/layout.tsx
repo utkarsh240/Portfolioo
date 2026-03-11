@@ -6,9 +6,8 @@ import SmoothScroll from '@/components/SmoothScroll'
 import CustomCursor from '@/components/CustomCursor'
 import NetworkBackground from '@/components/NetworkBackground'
 import Preloader from '@/components/Preloader'
-import MatrixRain from '@/components/MatrixRain'
-import QuantumDataStream from '@/components/QuantumDataStream'
 import BlackHoleCursor from '@/components/BlackHoleCursor'
+import TerminalConsole from '@/components/TerminalConsole'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -55,10 +54,9 @@ export default function RootLayout({
         >
           <NetworkBackground />
           <Preloader />
-          <MatrixRain />
-          <QuantumDataStream />
           <BlackHoleCursor />
           <CustomCursor />
+          <TerminalConsole />
           <SmoothScroll>
             {children}
           </SmoothScroll>

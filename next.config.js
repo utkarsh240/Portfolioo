@@ -19,6 +19,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'authjs.dev' },
     ],
   },
+  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
 }
 
 module.exports = nextConfig 

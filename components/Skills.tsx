@@ -110,18 +110,18 @@ export default function Skills() {
   }, [])
 
   return (
-    <Section id="skills" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6 relative z-10" ref={containerRef}>
+    <Section id="skills" className="py-32 relative">
+      <div className="max-w-6xl mx-auto px-6 relative z-10" ref={containerRef}>
 
-        <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-lime-400 font-medium tracking-wide mb-6">
-            <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
+        <div className="mb-20">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.03] text-xs text-lime-400 font-medium tracking-wide mb-8 backdrop-blur-sm">
+            <span className="w-2 h-2 rounded-full bg-lime-400 animate-pulse shadow-[0_0_8px_rgba(163,230,53,0.8)]" />
             System Architecture
           </div>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-white mb-4">
-            <ScrambleText text="Technical" /> <span className="text-lime-400">Arsenal</span>
+          <h2 className="text-4xl md:text-6xl font-heading font-bold tracking-headline leading-headline text-white mb-5">
+            <ScrambleText text="Technical" /> <span className="text-gradient-accent">Arsenal</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl">
+          <p className="text-gray-400 text-[15px] max-w-xl leading-relaxed">
             The core technologies and tools I leverage to build scalable, high-performance web applications and AI systems.
           </p>
         </div>
@@ -142,29 +142,32 @@ export default function Skills() {
             return (
               <div
                 key={category.title}
-                className={`skill-card group bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 hover:border-lime-400/30 transition-colors duration-300 shadow-2xl shadow-black/50 ${getCategorySpan(index)}`}
+                className={`skill-card group glass-card glass-card-hover rounded-[1.5rem] p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] ${getCategorySpan(index)} relative overflow-hidden`}
               >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-lime-400 group-hover:border-lime-400/30 transition-colors shrink-0">
-                    <Icon size={24} />
+                {/* Subtle hover gradient wash */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0ff]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                <div className="flex items-center gap-4 mb-8 relative z-10">
+                  <div className="w-11 h-11 rounded-xl border border-white/[0.06] bg-white/[0.03] flex items-center justify-center text-gray-500 group-hover:text-[#0ff] group-hover:border-[#0ff]/30 shrink-0 transition-premium">
+                    <Icon size={20} className="group-hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.6)]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">{category.title}</h3>
+                  <h3 className="text-xl font-semibold text-white tracking-subhead">{category.title}</h3>
                 </div>
 
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2.5">
                   {category.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="flex items-center gap-2.5 px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl hover:border-lime-400/50 hover:bg-lime-400/5 transition-all duration-300 group/skill"
+                      className="flex items-center gap-2 px-3.5 py-2 bg-white/[0.02] border border-white/[0.06] rounded-lg hover:border-[#0ff]/30 hover:bg-white/[0.05] group/skill transition-premium"
                     >
                       <img
                         src={skill.icon}
                         alt={`${skill.name} logo`}
-                        className={`w-5 h-5 object-contain opacity-80 group-hover/skill:opacity-100 transition-opacity ${skill.invert ? 'invert' : ''}`}
+                        className={`w-4 h-4 object-contain opacity-70 group-hover/skill:opacity-100 transition-opacity ${skill.invert ? 'invert' : ''}`}
                         loading="lazy"
                         decoding="async"
                       />
-                      <span className="text-sm font-medium text-gray-300 group-hover/skill:text-lime-400 transition-colors">
+                      <span className="text-[13px] font-medium text-gray-400 group-hover/skill:text-gray-200 transition-colors">
                         {skill.name}
                       </span>
                     </div>

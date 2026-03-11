@@ -6,33 +6,78 @@
 
   :root,
   .dark {
-    --background: #0b0b0c;
-    --foreground: 0 0% 100%;
+    --background: #060608;
+    --foreground: 0 0% 96%;
     --card: 0 0% 3%;
-    --card-foreground: 0 0% 100%;
+    --card-foreground: 0 0% 96%;
     --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 100%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 0 0% 96%;
     --primary-foreground: 0 0% 0%;
     --secondary: 0 0% 5%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary-foreground: 0 0% 96%;
     --muted: 0 0% 5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --border: 0 0% 10%;
-    --input: 0 0% 10%;
+    --border: 0 0% 8%;
+    --input: 0 0% 8%;
     --radius: 0.5rem;
+
+    /* Premium accent system */
+    --accent-lime: 163 230 53;
+    --accent-cyan: 0 255 255;
+
+    /* Apple-tier easing curves */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
 @layer base {
   body {
-    @apply text-white antialiased selection:bg-lime-500/30 selection:text-lime-200 overflow-x-hidden;
-    background-color: #0b0b0c;
+    @apply text-gray-100 antialiased selection:bg-lime-500/30 selection:text-lime-200 overflow-x-hidden;
+    background-color: #060608;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
     background-position: center;
+  }
+
+  /* Premium focus ring for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-[#0ff]/50 ring-offset-2 ring-offset-[#060608] rounded-sm;
+  }
+
+  /* Respect user motion preference */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(163, 230, 53, 0.3);
   }
 }
 
@@ -42,6 +87,25 @@
   }
 
   .glass-card {
-    @apply bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl;
+    @apply bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-500;
+    transition-timing-function: var(--ease-out-expo);
+  }
+
+  /* Gradient text utility */
+  .text-gradient-white {
+    @apply bg-gradient-to-r from-white via-white to-gray-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-lime-400 to-[#0ff] bg-clip-text text-transparent;
+  }
+
+  /* Premium transition */
+  .transition-premium {
+    transition: all 0.6s var(--ease-out-expo);
   }
 }

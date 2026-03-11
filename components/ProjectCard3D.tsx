@@ -75,7 +75,11 @@ export default function ProjectCard3D({ project }: ProjectCardProps) {
 
     // Calculate background gradient transform outside of render to avoid hook order errors
     const bgGradient = useTransform(
-        () => `radial-gradient(circle at ${(x.get() + 0.5) * 100}% ${(y.get() + 0.5) * 100}%, rgba(163,230,53,0.15) 0%, transparent 60%)`
+        () => `radial-gradient(circle at ${(x.get() + 0.5) * 100}% ${(y.get() + 0.5) * 100}%, rgba(0,255,255,0.15) 0%, transparent 60%)`
+    )
+
+    const borderGlow = useTransform(
+        () => `radial-gradient(500px circle at ${(x.get() + 0.5) * 100}% ${(y.get() + 0.5) * 100}%, rgba(0,255,255,0.4), transparent 40%)`
     )
 
     return (
@@ -90,16 +94,27 @@ export default function ProjectCard3D({ project }: ProjectCardProps) {
                 rotateY: isMobile ? 0 : rotateY,
                 perspective: 1000,
             }}
-            className="project-card h-full w-full will-change-transform"
+            className="project-card h-full w-full will-change-transform relative group rounded-2xl"
         >
+            {/* Animated Hover Border Container */}
+            {!isMobile && (
+                <motion.div
+                    className="absolute -inset-[1px] rounded-2xl z-0 pointer-events-none transition-opacity duration-300"
+                    style={{
+                        opacity: isHovered ? 1 : 0,
+                        background: borderGlow,
+                    }}
+                />
+            )}
+
             <div
-                className="group flex flex-col h-full bg-[#0b0b0c]/80 backdrop-blur-xl border border-white/5 rounded-2xl p-6 transition-all duration-300 relative overflow-hidden"
+                className="flex flex-col h-full bg-[#0b0b0c]/90 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 transition-all duration-300 relative overflow-hidden z-10"
                 style={{
                     transformStyle: 'preserve-3d',
                     transform: isMobile ? 'none' : 'translateZ(20px)',
                     boxShadow: isHovered && !isMobile
-                        ? '0 30px 60px -20px rgba(163,230,53,0.1), inset 0 0 20px rgba(163,230,53,0.05)'
-                        : '0 10px 30px -10px rgba(0,0,0,0.5)'
+                        ? '0 30px 60px -20px rgba(0,255,255,0.15), inset 0 0 20px rgba(0,255,255,0.05)'
+                        : '0 10px 30px -10px rgba(0,0,0,0.8)'
                 }}
             >
                 {/* Dynamic Highlight Glow that follows mouse */}
@@ -115,8 +130,8 @@ export default function ProjectCard3D({ project }: ProjectCardProps) {
 
                 <div className="flex justify-between items-start mb-6 relative z-10" style={{ transform: isMobile ? 'none' : 'translateZ(30px)' }}>
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-lime-400/50 transition-colors shadow-inner">
-                            <project.icon className="text-white group-hover:text-lime-400 transition-colors" size={24} />
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#0ff]/50 transition-colors shadow-[inset_0_0_15px_rgba(255,255,255,0.05)]">
+                            <project.icon className="text-white group-hover:text-[#0ff] transition-colors drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]" size={24} />
                         </div>
                         <div>
                             <h3 className="text-xl font-bold text-white leading-tight mb-1 line-clamp-2">
@@ -127,12 +142,12 @@ export default function ProjectCard3D({ project }: ProjectCardProps) {
 
                     <div className="flex items-center gap-2">
                         {project.github && project.github !== '#' && (
-                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-white/5 hover:bg-lime-400 hover:text-black transition-colors border border-white/10">
+                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-white/5 hover:bg-[#0ff] hover:text-black transition-all border border-white/10 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] z-20">
                                 <Github size={18} className="text-inherit" />
                             </a>
                         )}
                         {project.demo && project.demo !== '#' && (
-                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-white/5 hover:bg-lime-400 hover:text-black transition-colors border border-white/10">
+                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-white/5 hover:bg-[#0ff] hover:text-black transition-all border border-white/10 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] z-20">
                                 <ExternalLink size={18} className="text-inherit" />
                             </a>
                         )}
