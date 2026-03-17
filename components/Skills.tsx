@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import Section from './Section'
 import ScrambleText from './ScrambleText'
+import ActivityGraph from './ActivityGraph'
 import { Code2, Globe, Server, Database, BrainCircuit, Wrench } from 'lucide-react'
 
 // Map categories to icons
@@ -176,6 +177,11 @@ export default function Skills() {
               </div>
             )
           })}
+
+          {/* Full-width Activity Graph Bento component */}
+          <div className="md:col-span-2 lg:col-span-3">
+            <ActivityGraph />
+          </div>
         </div>
       </div>
     </Section>
